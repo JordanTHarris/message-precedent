@@ -5,13 +5,20 @@ import { sfPro, inter } from "./fonts";
 import Nav from "@/components/layout/nav";
 import Footer from "@/components/layout/footer";
 import { Suspense } from "react";
+import { Metadata, Viewport } from "next";
 
-export const metadata = {
+export const metadata: Metadata = {
   title: "Precedent - Building blocks for your Next.js project",
   description:
     "Precedent is the all-in-one solution for your Next.js project. It includes a design system, authentication, analytics, and more.",
   metadataBase: new URL("https://precedent.dev"),
-  themeColor: "#FFF",
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "cyan" },
+    { media: "(prefers-color-scheme: dark)", color: "black" },
+  ],
 };
 
 export default async function RootLayout({
