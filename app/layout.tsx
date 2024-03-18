@@ -44,7 +44,7 @@ export default async function RootLayout({
             <Nav />
           </Suspense>
           {children}
-          <Footer />
+          {/* <Footer /> */}
         </ThemeProvider>
         <Analytics />
       </body>

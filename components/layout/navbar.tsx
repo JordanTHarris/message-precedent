@@ -18,14 +18,12 @@ export default function NavBar({ session }: { session: Session | null }) {
       <SignInModal />
       <div
         className={`fixed top-0 flex w-full justify-center ${
-          scrolled
-            ? "border-b border-gray-200 bg-white/50 backdrop-blur-xl"
-            : "bg-white/0"
+          scrolled ? "border-b bg-background/50 backdrop-blur-xl" : "bg-white/0"
         } z-30 transition-all`}
       >
         <div className="mx-5 flex h-16 w-full max-w-screen-xl items-center justify-between">
-          <Link href="/" className="font-display flex items-center text-2xl">
-            <p>Prophet Message</p>
+          <Link href="/" className="flex items-center text-2xl font-semibold">
+            Prophet Message
           </Link>
           <div className="flex items-center gap-2">
             {session ? (

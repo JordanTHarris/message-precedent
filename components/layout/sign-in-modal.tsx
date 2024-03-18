@@ -1,4 +1,3 @@
-import Modal from "@/components/shared/modal";
 import { signIn } from "next-auth/react";
 import {
   useState,
@@ -7,8 +6,19 @@ import {
   useCallback,
   useMemo,
 } from "react";
-import { LoadingDots, Google } from "@/components/shared/icons";
+import { LoadingDots, Google, Discord } from "@/components/shared/icons";
 import Image from "next/image";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 
 const SignInModal = ({
   showSignInModal,
@@ -17,53 +27,72 @@ const SignInModal = ({
   showSignInModal: boolean;
   setShowSignInModal: Dispatch<SetStateAction<boolean>>;
 }) => {
-  const [signInClicked, setSignInClicked] = useState(false);
+  const [googleClicked, setGoogleClicked] = useState(false);
+  const [discordClicked, setDiscordClicked] = useState(false);
 
   return (
-    <Modal showModal={showSignInModal} setShowModal={setShowSignInModal}>
-      <div className="w-full overflow-hidden shadow-xl md:max-w-md md:rounded-2xl md:border md:border-gray-200">
-        <div className="flex flex-col items-center justify-center space-y-3 border-b border-gray-200 bg-white px-4 py-6 pt-8 text-center md:px-16">
-          <a href="https://precedent.dev">
-            <Image
-              src="/logo.png"
-              alt="Logo"
-              className="h-10 w-10 rounded-full"
-              width={20}
-              height={20}
-            />
-          </a>
-          <h3 className="font-display text-2xl font-bold">Sign In</h3>
-          <p className="text-sm text-gray-500">
-            This is strictly for demo purposes - only your email and profile
-            picture will be stored.
-          </p>
-        </div>
-
-        <div className="flex flex-col space-y-4 bg-gray-50 px-4 py-8 md:px-16">
-          <button
-            disabled={signInClicked}
+    <Dialog open={showSignInModal} onOpenChange={setShowSignInModal}>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Sign In</DialogTitle>
+          <DialogDescription>
+            Sign in to your account to continue
+          </DialogDescription>
+        </DialogHeader>
+        <div className="grid gap-4 py-4">
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="name" className="text-right">
+              Username
+            </Label>
+            <Input id="name" placeholder="GodGamer123" className="col-span-3" />
+          </div>
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="password" className="text-right">
+              Password
+            </Label>
+            <Input id="password" className="col-span-3" />
+          </div>
+          <Button
+            disabled={googleClicked}
             className={`${
-              signInClicked
-                ? "cursor-not-allowed border-gray-200 bg-gray-100"
-                : "border border-gray-200 bg-white text-black hover:bg-gray-50"
-            } flex h-10 w-full items-center justify-center space-x-3 rounded-md border text-sm shadow-sm transition-all duration-75 focus:outline-none`}
+              googleClicked ? "cursor-not-allowed " : "border"
+            } flex items-center justify-center space-x-3 transition-all duration-75 focus:outline-none`}
             onClick={() => {
-              setSignInClicked(true);
+              setGoogleClicked(true);
               signIn("google");
             }}
           >
-            {signInClicked ? (
+            {googleClicked ? (
               <LoadingDots color="#808080" />
             ) : (
               <>
                 <Google className="h-5 w-5" />
-                <p>Sign In with Google</p>
+                <p>Google</p>
               </>
             )}
-          </button>
+          </Button>
+          <Button
+            disabled={discordClicked}
+            className={`${
+              discordClicked ? "cursor-not-allowed " : "border"
+            } flex items-center justify-center space-x-3 transition-all duration-75 focus:outline-none`}
+            onClick={() => {
+              setDiscordClicked(true);
+              signIn("discord");
+            }}
+          >
+            {discordClicked ? (
+              <LoadingDots color="#808080" />
+            ) : (
+              <>
+                <Discord className="h-5 w-5" />
+                <p>Discord</p>
+              </>
+            )}
+          </Button>
         </div>
-      </div>
-    </Modal>
+      </DialogContent>
+    </Dialog>
   );
 };
 
