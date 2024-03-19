@@ -38,7 +38,7 @@ export default async function Profile() {
           />
         </CardContent>
         <CardFooter className="flex justify-center">
-          <Button>Edit</Button>
+          <Button size="lg">Edit</Button>
         </CardFooter>
       </Card>
     </div>

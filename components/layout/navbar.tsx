@@ -11,17 +11,12 @@ import UserDropdown from "./user-dropdown";
 
 export default function NavBar({ session }: { session: Session | null }) {
   const { SignInModal, setShowSignInModal } = useSignInModal();
-  const scrolled = useScroll(50);
 
   return (
     <>
       <SignInModal />
-      <div
-        className={`fixed top-0 flex w-full justify-center ${
-          scrolled ? "border-b bg-background/50 backdrop-blur-xl" : "bg-white/0"
-        } z-30 transition-all`}
-      >
-        <div className="mx-5 flex h-16 w-full max-w-screen-xl items-center justify-between">
+      <div className="fixed top-0 z-30 flex w-full justify-center backdrop-blur-xl transition-all">
+        <div className="mx-5 flex h-12 w-full max-w-screen-xl items-center justify-between">
           <Link href="/" className="flex items-center text-2xl ">
             Prophet
           </Link>
@@ -31,7 +26,7 @@ export default function NavBar({ session }: { session: Session | null }) {
             ) : (
               <Button onClick={() => setShowSignInModal(true)}>Sign In</Button>
             )}
-            <ThemeToggle className="h-10 w-10" />
+            <ThemeToggle className="h-[30px] w-[30px]" />
           </div>
         </div>
       </div>
