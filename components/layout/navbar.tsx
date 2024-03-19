@@ -2,12 +2,12 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import useScroll from "@/lib/hooks/use-scroll";
-import { useSignInModal } from "./sign-in-modal";
-import UserDropdown from "./user-dropdown";
 import { Session } from "next-auth";
 import { Button } from "@/components/ui/button";
+import useScroll from "@/lib/hooks/use-scroll";
 import { ThemeToggle } from "../home/ThemeToggle";
+import { useSignInModal } from "./sign-in-modal";
+import UserDropdown from "./user-dropdown";
 
 export default function NavBar({ session }: { session: Session | null }) {
   const { SignInModal, setShowSignInModal } = useSignInModal();
@@ -22,8 +22,8 @@ export default function NavBar({ session }: { session: Session | null }) {
         } z-30 transition-all`}
       >
         <div className="mx-5 flex h-16 w-full max-w-screen-xl items-center justify-between">
-          <Link href="/" className="flex items-center text-2xl font-semibold">
-            Prophet Message
+          <Link href="/" className="flex items-center text-2xl ">
+            Prophet
           </Link>
           <div className="flex items-center gap-2">
             {session ? (
@@ -31,7 +31,7 @@ export default function NavBar({ session }: { session: Session | null }) {
             ) : (
               <Button onClick={() => setShowSignInModal(true)}>Sign In</Button>
             )}
-            <ThemeToggle />
+            <ThemeToggle className="h-10 w-10" />
           </div>
         </div>
       </div>

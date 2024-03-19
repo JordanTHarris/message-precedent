@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { signIn } from "next-auth/react";
 import {
   useState,
@@ -7,7 +8,7 @@ import {
   useMemo,
 } from "react";
 import { LoadingDots, Google, Discord } from "@/components/shared/icons";
-import Image from "next/image";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -16,7 +17,6 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 

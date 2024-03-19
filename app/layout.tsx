@@ -1,17 +1,17 @@
 import "./globals.css";
 import { Analytics } from "@vercel/analytics/react";
+import { Metadata, Viewport } from "next";
+import { Suspense } from "react";
+import { ThemeProvider } from "@/components/home/theme-provider";
+import Footer from "@/components/layout/footer";
+import Nav from "@/components/layout/nav";
 import { cn } from "@/lib/utils";
 import { sfPro, fontSans } from "./fonts";
-import Nav from "@/components/layout/nav";
-import Footer from "@/components/layout/footer";
-import { Suspense } from "react";
-import { Metadata, Viewport } from "next";
-import { ThemeProvider } from "@/components/home/theme-provider";
 
 export const metadata: Metadata = {
   title: "Prophet Message",
   description: "New message app built with Next.js, Tailwind, and Prisma.",
-  // metadataBase: new URL("https://precedent.dev"),
+  metadataBase: new URL("https://message-precedent.vercel.app"),
 };
 
 export const viewport: Viewport = {
@@ -43,7 +43,9 @@ export default async function RootLayout({
           <Suspense fallback="...">
             <Nav />
           </Suspense>
-          {children}
+          <main className="flex min-h-screen w-full flex-col items-center justify-center py-24">
+            {children}
+          </main>
           {/* <Footer /> */}
         </ThemeProvider>
         <Analytics />
