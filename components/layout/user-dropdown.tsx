@@ -2,7 +2,7 @@
 
 import { LogOut, User } from "lucide-react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
 import { useState } from "react";
@@ -15,9 +15,10 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import prisma from "@/lib/prisma";
 
-export default function UserDropdown({ session }: { session: Session }) {
-  const { email, image } = session?.user || {};
+export default async function UserDropdown({ session }: { session: Session }) {
+  const { name, email, image } = session?.user || {};
   const router = useRouter();
 
   if (!email) return null;
@@ -37,10 +38,8 @@ export default function UserDropdown({ session }: { session: Session }) {
         <DropdownMenuItem onClick={() => router.push("/profile")}>
           <User className="mr-2 h-4 w-4" />
           <div className="flex flex-col">
-            {session?.user?.name && <p>{session?.user?.name}</p>}
-            <p className="truncate text-sm text-muted-foreground">
-              {session?.user?.email}
-            </p>
+            {name && <p>{name}</p>}
+            <p className="truncate text-sm text-muted-foreground">{email}</p>
           </div>
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => signOut()}>

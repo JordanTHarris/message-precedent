@@ -36,7 +36,7 @@ const SignInModal = ({
         <DialogHeader>
           <DialogTitle>Sign In</DialogTitle>
           <DialogDescription>
-            Sign in to your account to continue
+            Use one of the provided methods below
           </DialogDescription>
         </DialogHeader>
         <div className="grid gap-4 py-4">
@@ -52,44 +52,48 @@ const SignInModal = ({
             </Label>
             <Input id="password" className="col-span-3" />
           </div>
-          <Button
-            disabled={googleClicked}
-            className={`${
-              googleClicked ? "cursor-not-allowed " : "border"
-            } flex items-center justify-center space-x-3 transition-all duration-75 focus:outline-none`}
-            onClick={() => {
-              setGoogleClicked(true);
-              signIn("google");
-            }}
-          >
-            {googleClicked ? (
-              <LoadingDots color="#808080" />
-            ) : (
-              <>
-                <Google className="h-5 w-5" />
-                <p>Google</p>
-              </>
-            )}
-          </Button>
-          <Button
-            disabled={discordClicked}
-            className={`${
-              discordClicked ? "cursor-not-allowed " : "border"
-            } flex items-center justify-center space-x-3 transition-all duration-75 focus:outline-none`}
-            onClick={() => {
-              setDiscordClicked(true);
-              signIn("discord");
-            }}
-          >
-            {discordClicked ? (
-              <LoadingDots color="#808080" />
-            ) : (
-              <>
-                <Discord className="h-5 w-5" />
-                <p>Discord</p>
-              </>
-            )}
-          </Button>
+          <div className="flex w-full items-center justify-center pt-4">
+            <Button
+              disabled={googleClicked}
+              variant="ghost"
+              className={`${
+                googleClicked ? "cursor-not-allowed" : ""
+              } flex flex-1 items-center justify-center space-x-3 transition-all duration-75 focus:outline-none`}
+              onClick={() => {
+                setGoogleClicked(true);
+                signIn("google");
+              }}
+            >
+              {googleClicked ? (
+                <LoadingDots color="#808080" />
+              ) : (
+                <>
+                  <Google className="h-5 w-5" />
+                  <p>Google</p>
+                </>
+              )}
+            </Button>
+            <Button
+              disabled={discordClicked}
+              variant="ghost"
+              className={`${
+                discordClicked ? "cursor-not-allowed" : ""
+              } flex flex-1 items-center justify-center space-x-3 transition-all duration-75 focus:outline-none`}
+              onClick={() => {
+                setDiscordClicked(true);
+                signIn("discord");
+              }}
+            >
+              {discordClicked ? (
+                <LoadingDots color="#808080" />
+              ) : (
+                <>
+                  <Discord className="h-5 w-5" />
+                  <p>Discord</p>
+                </>
+              )}
+            </Button>
+          </div>
         </div>
       </DialogContent>
     </Dialog>
