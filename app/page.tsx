@@ -1,6 +1,11 @@
+// "use client";
+
+import ParticlesComponent from "@/components/home/particles";
+
 export default async function Home() {
   return (
     <div className="max-w-xl px-5 xl:px-0">
+      <ParticlesComponent className="absolute inset-0 -z-10 h-screen w-screen" />
       <div className="flex flex-col items-center justify-center gap-5">
         {/* <h1 className="text-center text-6xl font-semibold">Prophet Message</h1> */}
         <h1 className="animate-linear bg-gradient-to-r from-indigo-600 via-teal-500 to-indigo-600 bg-[length:200%_auto] bg-clip-text text-center text-6xl font-semibold leading-tight text-transparent">
