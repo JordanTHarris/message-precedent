@@ -68,13 +68,17 @@ export const truncate = (str: string, length: number) => {
   return `${str.slice(0, length)}...`;
 };
 
+// Gets and converts shadcn theme variables to hex strings
 export function cssHexValue(property: string) {
-  const value = getComputedStyle(document.documentElement).getPropertyValue(
-    property,
-  );
-  const [h, s, l] = value.split(" ").map((x) => parseFloat(x));
-  const rgb = hslToRgb(h, s, l);
-  return `#${rgb.map((x) => x.toString(16).padStart(2, "0")).join("")}`;
+  if (typeof window !== "undefined") {
+    const value = getComputedStyle(document.documentElement).getPropertyValue(
+      property,
+    );
+    const [h, s, l] = value.split(" ").map((x) => parseFloat(x));
+    const rgb = hslToRgb(h, s, l);
+    return `#${rgb.map((x) => x.toString(16).padStart(2, "0")).join("")}`;
+  }
+  return "#000000";
 }
 
 export function hslToRgb(h: number, s: number, l: number) {
