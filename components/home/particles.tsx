@@ -9,10 +9,10 @@ import {
 import Particles, { initParticlesEngine } from "@tsparticles/react";
 // import { loadAll } from "@tsparticles/all"; // if you are going to use `loadAll`, install the "@tsparticles/all" package too.
 // import { loadFull } from "tsparticles"; // if you are going to use `loadFull`, install the "tsparticles" package too.
+// import { loadBasic } from "@tsparticles/basic"; // if you are going to use `loadBasic`, install the "@tsparticles/basic" package too.
 import { loadSlim } from "@tsparticles/slim"; // if you are going to use `loadSlim`, install the "@tsparticles/slim" package too.
 import { useTheme } from "next-themes";
 import { useEffect, useMemo, useRef, useState } from "react";
-// import { loadBasic } from "@tsparticles/basic"; // if you are going to use `loadBasic`, install the "@tsparticles/basic" package too.
 import { getParticlesOptions } from "@/lib/particle-options";
 import { cssHexValue } from "@/lib/utils";
 
@@ -23,11 +23,6 @@ export default function ParticlesComponent({
 }) {
   const [init, setInit] = useState(false);
   const { theme } = useTheme();
-  // const [themeKey, setThemeKey] = useState(0); // Key for forcing re-render
-
-  // useEffect(() => {
-  //   setThemeKey((prevKey) => prevKey + 1);
-  // }, [theme]);
 
   // this should be run only once per application lifetime
   useEffect(() => {
@@ -51,7 +46,7 @@ export default function ParticlesComponent({
   const options = useMemo(
     () => getParticlesOptions(theme === "dark" ? "stars" : "default"),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [theme],
+    [theme], // force re-render on theme changes
   );
 
   if (init) {

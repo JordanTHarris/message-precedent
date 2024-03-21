@@ -3,7 +3,6 @@ import { Analytics } from "@vercel/analytics/react";
 import { Metadata, Viewport } from "next";
 import { Suspense } from "react";
 import { ThemeProvider } from "@/components/home/theme-provider";
-import Footer from "@/components/layout/footer";
 import Nav from "@/components/layout/nav";
 import { cn } from "@/lib/utils";
 import { sfPro, fontSans } from "./fonts";
@@ -40,13 +39,10 @@ export default async function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <Suspense fallback="...">
-            <Nav />
-          </Suspense>
+          <Nav />
           <main className="flex min-h-screen w-full flex-col items-center justify-center py-24">
             {children}
           </main>
-          {/* <Footer /> */}
         </ThemeProvider>
         <Analytics />
       </body>
