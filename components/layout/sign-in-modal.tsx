@@ -129,7 +129,7 @@ const SignInModal = ({
               />
             </div>
             <DialogFooter>
-              <Button type="submit" disabled={emailLoading} className="flex-1">
+              <Button type="submit" disabled={emailLoading} className="w-full">
                 {emailLoading ? <LoadingDots /> : <p>Generate Magic Link</p>}
               </Button>
             </DialogFooter>

@@ -29,10 +29,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body
-        className={cn(
-          "min-h-screen bg-background font-sans antialiased",
-          fontSans.variable,
-        )}
+        className={cn("bg-background font-sans antialiased", fontSans.variable)}
       >
         <ThemeProvider
           attribute="class"
@@ -41,7 +38,7 @@ export default async function RootLayout({
           disableTransitionOnChange
         >
           <Nav />
-          <main className="flex min-h-screen w-full flex-col items-center justify-center py-24">
+          <main className="flex min-h-[100dvh] w-full flex-col items-center justify-center py-24">
             {children}
           </main>
           <Toaster richColors />
