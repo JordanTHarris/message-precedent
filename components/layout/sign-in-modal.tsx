@@ -31,15 +31,14 @@ const SignInModal = ({
   const [googleLoading, setGoogleLoading] = useState(false);
   const [discordLoading, setDiscordLoading] = useState(false);
   const [emailLoading, setEmailLoading] = useState(false);
+  const [email, setEmail] = useState("");
 
   async function onEmailSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setEmailLoading(true);
 
-    const formData = new FormData(event.currentTarget);
-
     const res = await signIn("email", {
-      email: formData.get("email"),
+      email: email,
       redirect: false,
     });
 
@@ -47,7 +46,7 @@ const SignInModal = ({
       toast.error("Make sure you have entered a valid email");
     } else if (res?.ok) {
       toast.success("Check your email for the login link");
-      event.currentTarget.reset();
+      setEmail("");
     } else {
       toast.error("Something went wrong. Please try again later.");
     }
@@ -122,15 +121,15 @@ const SignInModal = ({
           <form onSubmit={onEmailSubmit} className="grid gap-6">
             <div className="grid w-full items-center gap-1.5">
               <Label htmlFor="email">Email</Label>
-              <Input id="email" className="text-base" type="email" />
+              <Input
+                id="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
             </div>
             <DialogFooter>
-              <Button
-                type="submit"
-                disabled={emailLoading}
-                size={"lg"}
-                className="flex flex-1 items-center justify-center space-x-3 transition-all duration-75 focus:outline-none"
-              >
+              <Button type="submit" disabled={emailLoading} className="flex-1">
                 {emailLoading ? <LoadingDots /> : <p>Generate Magic Link</p>}
               </Button>
             </DialogFooter>
