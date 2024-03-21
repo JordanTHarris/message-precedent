@@ -45,11 +45,13 @@ const SignInModal = ({
     if (res?.error) {
       toast({
         variant: "destructive",
-        description: `Something went wrong: ${res?.error}`,
+        title: "Something went wrong",
+        description: "Make sure you have entered a valid email",
       });
     } else if (res?.ok) {
       toast({
-        description: "Check your email for the login link.",
+        title: "Email sent",
+        description: "Check your email for the login link",
       });
     }
     setEmailClicked(false);
