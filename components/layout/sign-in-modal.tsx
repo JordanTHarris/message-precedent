@@ -6,6 +6,7 @@ import {
   SetStateAction,
   useCallback,
   useMemo,
+  use,
 } from "react";
 import { LoadingDots, Google, Discord } from "@/components/shared/icons";
 import { Button } from "@/components/ui/button";
@@ -13,12 +14,14 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useToast } from "@/components/ui/use-toast";
 
 const SignInModal = ({
   showSignInModal,
@@ -29,33 +32,43 @@ const SignInModal = ({
 }) => {
   const [googleClicked, setGoogleClicked] = useState(false);
   const [discordClicked, setDiscordClicked] = useState(false);
+  const [emailClicked, setEmailClicked] = useState(false);
+  const { toast } = useToast();
+
+  async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setEmailClicked(true);
+    const res = await signIn("email", {
+      email: event.currentTarget.email.value,
+      redirect: false,
+    });
+    if (res?.error) {
+      toast({
+        variant: "destructive",
+        description: `Something went wrong: ${res?.error}`,
+      });
+    } else if (res?.ok) {
+      toast({
+        description: "Check your email for the login link.",
+      });
+    }
+    setEmailClicked(false);
+  }
 
   return (
     <Dialog open={showSignInModal} onOpenChange={setShowSignInModal}>
       <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Sign In</DialogTitle>
+        <DialogHeader className="space-y-1">
+          <DialogTitle className="text-2xl">Sign In</DialogTitle>
           <DialogDescription>
             Use one of the provided methods below
           </DialogDescription>
         </DialogHeader>
-        <div className="grid gap-4 py-4">
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="name" className="text-right">
-              Username
-            </Label>
-            <Input id="name" placeholder="GodGamer123" className="col-span-3" />
-          </div>
-          <div className="grid grid-cols-4 items-center gap-4">
-            <Label htmlFor="password" className="text-right">
-              Password
-            </Label>
-            <Input id="password" className="col-span-3" />
-          </div>
-          <div className="flex w-full items-center justify-center pt-4">
+        <div className="grid gap-4">
+          <div className="grid grid-cols-2 gap-6">
             <Button
               disabled={googleClicked}
-              variant="ghost"
+              variant="outline"
               className={`${
                 googleClicked ? "cursor-not-allowed" : ""
               } flex flex-1 items-center justify-center space-x-3 transition-all duration-75 focus:outline-none`}
@@ -75,7 +88,7 @@ const SignInModal = ({
             </Button>
             <Button
               disabled={discordClicked}
-              variant="ghost"
+              variant="outline"
               className={`${
                 discordClicked ? "cursor-not-allowed" : ""
               } flex flex-1 items-center justify-center space-x-3 transition-all duration-75 focus:outline-none`}
@@ -94,6 +107,33 @@ const SignInModal = ({
               )}
             </Button>
           </div>
+
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t" />
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-background px-2 text-muted-foreground">
+                Or continue with
+              </span>
+            </div>
+          </div>
+
+          <form onSubmit={onSubmit} className="grid gap-6">
+            <div className="grid w-full items-center gap-1.5">
+              <Label htmlFor="email">Email</Label>
+              <Input id="email" />
+            </div>
+            <DialogFooter>
+              <Button
+                type="submit"
+                disabled={emailClicked}
+                className="flex flex-1 items-center justify-center space-x-3 transition-all duration-75 focus:outline-none"
+              >
+                {emailClicked ? <LoadingDots /> : <p>Generate Magic Link</p>}
+              </Button>
+            </DialogFooter>
+          </form>
         </div>
       </DialogContent>
     </Dialog>

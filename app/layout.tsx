@@ -6,6 +6,7 @@ import { ThemeProvider } from "@/components/home/theme-provider";
 import Nav from "@/components/layout/nav";
 import { cn } from "@/lib/utils";
 import { sfPro, fontSans } from "./fonts";
+import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
   title: "Prophet Message",
@@ -43,6 +44,7 @@ export default async function RootLayout({
           <main className="flex min-h-screen w-full flex-col items-center justify-center py-24">
             {children}
           </main>
+          <Toaster />
         </ThemeProvider>
         <Analytics />
       </body>
