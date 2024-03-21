@@ -1,10 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { Session } from "next-auth";
 import { Button } from "@/components/ui/button";
-import useScroll from "@/lib/hooks/use-scroll";
 import { ThemeToggle } from "../home/ThemeToggle";
 import { useSignInModal } from "./sign-in-modal";
 import UserDropdown from "./user-dropdown";
@@ -15,7 +13,7 @@ export default function NavBar({ session }: { session: Session | null }) {
   return (
     <>
       <SignInModal />
-      <div className="fixed top-0 z-30 flex w-full justify-center backdrop-blur-xl transition-all">
+      <div className="fixed top-0 z-30 flex w-full justify-center backdrop-blur-lg transition-all">
         <div className="mx-5 flex h-12 w-full max-w-screen-xl items-center justify-between">
           <Link href="/" className="flex items-center text-2xl ">
             Prophet

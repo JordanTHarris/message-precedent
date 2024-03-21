@@ -14,7 +14,6 @@ import { loadSlim } from "@tsparticles/slim"; // if you are going to use `loadSl
 import { useTheme } from "next-themes";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { getParticlesOptions } from "@/lib/particle-options";
-import { cssHexValue } from "@/lib/utils";
 
 export default function ParticlesComponent({
   className,
@@ -45,20 +44,17 @@ export default function ParticlesComponent({
 
   const options = useMemo(
     () => getParticlesOptions(theme === "dark" ? "stars" : "default"),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     [theme], // force re-render on theme changes
   );
 
-  if (init) {
-    return (
+  return (
+    init && (
       <Particles
         className={className}
         id="tsparticles"
         particlesLoaded={particlesLoaded}
         options={options}
       />
-    );
-  } else {
-    return <></>;
-  }
+    )
+  );
 }
