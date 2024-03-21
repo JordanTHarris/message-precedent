@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { signIn } from "next-auth/react";
 import {
   useState,
@@ -8,6 +7,7 @@ import {
   useMemo,
   use,
 } from "react";
+import { toast } from "sonner";
 import { LoadingDots, Google, Discord } from "@/components/shared/icons";
 import { Button } from "@/components/ui/button";
 import {
@@ -17,11 +17,9 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useToast } from "@/components/ui/use-toast";
 
 const SignInModal = ({
   showSignInModal,
@@ -30,31 +28,31 @@ const SignInModal = ({
   showSignInModal: boolean;
   setShowSignInModal: Dispatch<SetStateAction<boolean>>;
 }) => {
-  const [googleClicked, setGoogleClicked] = useState(false);
-  const [discordClicked, setDiscordClicked] = useState(false);
-  const [emailClicked, setEmailClicked] = useState(false);
-  const { toast } = useToast();
+  const [googleLoading, setGoogleLoading] = useState(false);
+  const [discordLoading, setDiscordLoading] = useState(false);
+  const [emailLoading, setEmailLoading] = useState(false);
 
-  async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
+  async function onEmailSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setEmailClicked(true);
+    setEmailLoading(true);
+
+    const formData = new FormData(event.currentTarget);
+
     const res = await signIn("email", {
-      email: event.currentTarget.email.value,
+      email: formData.get("email"),
       redirect: false,
     });
+
     if (res?.error) {
-      toast({
-        variant: "destructive",
-        title: "Something went wrong",
-        description: "Make sure you have entered a valid email",
-      });
+      toast.error("Make sure you have entered a valid email");
     } else if (res?.ok) {
-      toast({
-        title: "Email sent",
-        description: "Check your email for the login link",
-      });
+      toast.success("Check your email for the login link");
+      event.currentTarget.reset();
+    } else {
+      toast.error("Something went wrong. Please try again later.");
     }
-    setEmailClicked(false);
+
+    setEmailLoading(false);
   }
 
   return (
@@ -69,17 +67,17 @@ const SignInModal = ({
         <div className="grid gap-4">
           <div className="grid grid-cols-2 gap-6">
             <Button
-              disabled={googleClicked}
+              disabled={googleLoading}
               variant="outline"
               className={`${
-                googleClicked ? "cursor-not-allowed" : ""
+                googleLoading ? "cursor-not-allowed" : ""
               } flex flex-1 items-center justify-center space-x-3 transition-all duration-75 focus:outline-none`}
               onClick={() => {
-                setGoogleClicked(true);
+                setGoogleLoading(true);
                 signIn("google");
               }}
             >
-              {googleClicked ? (
+              {googleLoading ? (
                 <LoadingDots color="#808080" />
               ) : (
                 <>
@@ -89,17 +87,17 @@ const SignInModal = ({
               )}
             </Button>
             <Button
-              disabled={discordClicked}
+              disabled={discordLoading}
               variant="outline"
               className={`${
-                discordClicked ? "cursor-not-allowed" : ""
+                discordLoading ? "cursor-not-allowed" : ""
               } flex flex-1 items-center justify-center space-x-3 transition-all duration-75 focus:outline-none`}
               onClick={() => {
-                setDiscordClicked(true);
+                setDiscordLoading(true);
                 signIn("discord");
               }}
             >
-              {discordClicked ? (
+              {discordLoading ? (
                 <LoadingDots color="#808080" />
               ) : (
                 <>
@@ -121,18 +119,19 @@ const SignInModal = ({
             </div>
           </div>
 
-          <form onSubmit={onSubmit} className="grid gap-6">
+          <form onSubmit={onEmailSubmit} className="grid gap-6">
             <div className="grid w-full items-center gap-1.5">
               <Label htmlFor="email">Email</Label>
-              <Input id="email" />
+              <Input id="email" className="text-base" type="email" />
             </div>
             <DialogFooter>
               <Button
                 type="submit"
-                disabled={emailClicked}
+                disabled={emailLoading}
+                size={"lg"}
                 className="flex flex-1 items-center justify-center space-x-3 transition-all duration-75 focus:outline-none"
               >
-                {emailClicked ? <LoadingDots /> : <p>Generate Magic Link</p>}
+                {emailLoading ? <LoadingDots /> : <p>Generate Magic Link</p>}
               </Button>
             </DialogFooter>
           </form>
