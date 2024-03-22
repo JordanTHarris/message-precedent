@@ -21,10 +21,9 @@ export const viewport: Viewport = {
   ],
 };
 
-export default async function RootLayout({
-  children,
-}: {
+export default async function RootLayout(props: {
   children: React.ReactNode;
+  modal: React.ReactNode;
 }) {
   return (
     <html lang="en">
@@ -39,7 +38,8 @@ export default async function RootLayout({
         >
           <Nav />
           <main className="flex min-h-[100dvh] w-full flex-col items-center justify-center py-24">
-            {children}
+            {props.children}
+            {props.modal}
           </main>
           <Toaster richColors />
         </ThemeProvider>

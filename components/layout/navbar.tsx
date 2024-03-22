@@ -1,18 +1,18 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Session } from "next-auth";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "../home/ThemeToggle";
-import { useSignInModal } from "./sign-in-modal";
 import UserDropdown from "./user-dropdown";
 
 export default function NavBar({ session }: { session: Session | null }) {
-  const { SignInModal, setShowSignInModal } = useSignInModal();
+  const router = useRouter();
 
   return (
     <>
-      <SignInModal />
+      {/* <SignInModal /> */}
       <div className="fixed top-0 z-30 flex w-full justify-center backdrop-blur-lg transition-all">
         <div className="mx-5 flex h-12 w-full max-w-screen-xl items-center justify-between">
           <Link href="/" className="flex items-center text-2xl ">
@@ -22,7 +22,8 @@ export default function NavBar({ session }: { session: Session | null }) {
             {session ? (
               <UserDropdown session={session} />
             ) : (
-              <Button onClick={() => setShowSignInModal(true)}>Sign In</Button>
+              // <Button onClick={() => setShowSignInModal(true)}>Sign In</Button>
+              <Button onClick={() => router.push("/login")}>Sign In</Button>
             )}
             <ThemeToggle className="h-[30px] w-[30px]" />
           </div>
