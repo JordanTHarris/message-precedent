@@ -17,7 +17,7 @@ export default async function Login() {
   }
 
   return (
-    <Card className="sm:max-w-md">
+    <Card className="w-full max-w-md">
       <CardHeader>
         <CardTitle className="text-2xl">Sign In</CardTitle>
         <CardDescription>Use one of the provided methods below</CardDescription>
