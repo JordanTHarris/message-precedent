@@ -8,6 +8,9 @@ import { sendVerificationRequest } from "@/lib/send-verification-requests";
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
+  pages: {
+    signIn: "/login",
+  },
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
@@ -17,11 +20,22 @@ export const authOptions: NextAuthOptions = {
       clientId: process.env.DISCORD_CLIENT_ID as string,
       clientSecret: process.env.DISCORD_CLIENT_SECRET as string,
     }),
+    // EmailProvider({
+    //   type: "email",
+    //   server: "",
+    //   from: process.env.EMAIL_FROM,
+    //   sendVerificationRequest,
+    // }),
     EmailProvider({
-      type: "email",
-      server: "",
-      from: "onboarding@resend.dev",
-      sendVerificationRequest,
+      server: {
+        host: process.env.EMAIL_SERVER_HOST,
+        port: process.env.EMAIL_SERVER_PORT,
+        auth: {
+          user: process.env.EMAIL_SERVER_USER,
+          pass: process.env.EMAIL_SERVER_PASSWORD,
+        },
+      },
+      from: process.env.EMAIL_FROM || "onboarding@resend.dev",
     }),
   ],
 };

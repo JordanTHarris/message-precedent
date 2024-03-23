@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { signIn } from "next-auth/react";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -14,7 +13,6 @@ export const SignInForm = () => {
   const [discordLoading, setDiscordLoading] = useState(false);
   const [emailLoading, setEmailLoading] = useState(false);
   const [email, setEmail] = useState("");
-  const router = useRouter();
 
   async function onEmailSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -35,13 +33,6 @@ export const SignInForm = () => {
     }
 
     setEmailLoading(false);
-  }
-
-  function onOpenChange(open: boolean) {
-    if (!open) {
-      setEmail("");
-      router.back();
-    }
   }
 
   return (
