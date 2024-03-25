@@ -1,11 +1,10 @@
 import { redirect } from "next/navigation";
-import { getServerSession } from "next-auth";
 import { SignInModal } from "@/components/layout/sign-in-modal";
-import { authOptions } from "@/lib/auth";
+import { getCurrentUser } from "@/lib/session";
 
 export default async function Login() {
-  const session = await getServerSession(authOptions);
-  if (session) {
+  const user = await getCurrentUser();
+  if (user) {
     redirect("/");
   }
 

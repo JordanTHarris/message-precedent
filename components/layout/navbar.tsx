@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Session } from "next-auth";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "../home/ThemeToggle";
@@ -9,6 +9,8 @@ import UserDropdown from "./user-dropdown";
 
 export default function NavBar({ session }: { session: Session | null }) {
   const router = useRouter();
+  const pathname = usePathname();
+  // check if route name is intercepted route /auth/login or the regular route /auth/login
 
   return (
     <>
@@ -19,11 +21,18 @@ export default function NavBar({ session }: { session: Session | null }) {
             Prophet
           </Link>
           <div className="flex items-center gap-2">
+            <Button variant="outline" onClick={() => router.push("/chat")}>
+              Chat
+            </Button>
             {session ? (
               <UserDropdown session={session} />
             ) : (
-              // <Button onClick={() => setShowSignInModal(true)}>Sign In</Button>
-              <Button onClick={() => router.push("/login")}>Sign In</Button>
+              <Button
+                disabled={pathname === "/login"}
+                onClick={() => router.push("/login")}
+              >
+                Sign In
+              </Button>
             )}
             <ThemeToggle className="h-[30px] w-[30px]" />
           </div>

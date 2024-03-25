@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { SignInForm } from "@/components/layout/sign-in-form";
 import {
   Dialog,
@@ -14,9 +14,15 @@ import {
 export const SignInModal = () => {
   const router = useRouter();
 
+  // const pathname = usePathname();
+  // if (!pathname.includes("auth")) {
+  //   return null;
+  // }
+
   function onOpenChange(open: boolean) {
     if (!open) {
       router.back();
+      // router.push("/");
     }
   }
 

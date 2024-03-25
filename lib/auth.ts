@@ -8,9 +8,9 @@ import { sendVerificationRequest } from "@/lib/send-verification-requests";
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma),
-  // pages: {
-  //   signIn: "/login",
-  // },
+  pages: {
+    signIn: "/login",
+  },
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
