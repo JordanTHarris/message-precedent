@@ -1,12 +1,11 @@
-import { redirect } from "next/navigation";
-import { getCurrentUser } from "@/lib/session";
+import { getCurrentUser, redirectToLogin } from "@/lib/session";
 
 export default async function Page() {
   const user = await getCurrentUser();
 
   // redirect to login page if not logged in
   if (!user) {
-    redirect("/login");
+    redirectToLogin();
   }
 
   return (

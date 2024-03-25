@@ -20,12 +20,6 @@ export const authOptions: NextAuthOptions = {
       clientId: process.env.DISCORD_CLIENT_ID as string,
       clientSecret: process.env.DISCORD_CLIENT_SECRET as string,
     }),
-    // EmailProvider({
-    //   type: "email",
-    //   server: "",
-    //   from: process.env.EMAIL_FROM,
-    //   sendVerificationRequest,
-    // }),
     EmailProvider({
       server: {
         host: process.env.EMAIL_SERVER_HOST,
@@ -38,4 +32,17 @@ export const authOptions: NextAuthOptions = {
       from: process.env.EMAIL_FROM || "onboarding@resend.dev",
     }),
   ],
+  callbacks: {
+    // async jwt({ token, account, user }) {
+    //   // persist user id to the token right after signin
+    //   if (account) {
+    //     token.id = user.id;
+    //   }
+    //   return token;
+    // },
+    async session({ session, token, user }) {
+      session.user.id = user.id;
+      return session;
+    },
+  },
 };
