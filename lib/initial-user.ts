@@ -2,29 +2,29 @@ import { prisma } from "@/lib/prisma";
 import { getCurrentUser, redirectToLogin } from "@/lib/session";
 
 async function initialUser() {
-  const user = await getCurrentUser();
+  const currentUser = await getCurrentUser();
 
-  if (!user) {
+  if (!currentUser) {
     redirectToLogin();
     return null;
   }
 
-  const currentUser = await prisma.user.findUnique({
+  const user = await prisma.user.findUnique({
     where: {
-      id: user.id,
+      id: currentUser.id,
     },
   });
 
-  if (currentUser) {
-    return currentUser;
+  if (user) {
+    return user;
   }
 
   const newUser = await prisma.user.create({
     data: {
-      id: user.id,
-      email: user.email,
-      name: user.name,
-      image: user.image,
+      id: currentUser.id,
+      email: currentUser.email,
+      name: currentUser.name,
+      image: currentUser.image,
     },
   });
 
