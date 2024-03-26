@@ -4,6 +4,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+// import { FileUpload } from "@/components/layout/file-upload";
+import { FileUpload } from "@/components/layout/custom-file-upload";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -45,9 +47,9 @@ export function InitialModal() {
     setIsMounted(true);
   }, []);
 
-  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+  async function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
-  };
+  }
 
   if (!isMounted) {
     return null;
@@ -59,8 +61,8 @@ export function InitialModal() {
         <DialogHeader>
           <DialogTitle>Customize your server</DialogTitle>
           <DialogDescription>
-            Liven up your server and give it a name and an image. You can change
-            this later.
+            Liven up your server by giving it a name and an image. You can
+            change this later.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -72,11 +74,11 @@ export function InitialModal() {
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
-                      {/* <FileUpload
-                          endpoint="serverImage"
-                          value={field.value}
-                          onChange={field.onChange}
-                        /> */}
+                      <FileUpload
+                        endpoint="serverImage"
+                        value={field.value}
+                        onChange={field.onChange}
+                      />
                     </FormControl>
                   </FormItem>
                 )}
@@ -102,7 +104,7 @@ export function InitialModal() {
               )}
             />
             <DialogFooter className="">
-              <Button variant="default" disabled={isLoading}>
+              <Button variant="default" disabled={isLoading} className="w-full">
                 Create
               </Button>
             </DialogFooter>

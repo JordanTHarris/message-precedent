@@ -1,22 +1,42 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import * as z from "zod";
 import { LoadingDots, Google, Discord } from "@/components/shared/icons";
 import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+
+const formSchema = z.object({
+  email: z.string().min(1, { message: "Email is required" }),
+});
 
 export const SignInForm = () => {
   const [googleLoading, setGoogleLoading] = useState(false);
   const [discordLoading, setDiscordLoading] = useState(false);
-  const [emailLoading, setEmailLoading] = useState(false);
-  const [email, setEmail] = useState("");
+  const form = useForm({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      email: "",
+    },
+  });
+  const emailLoading = form.formState.isSubmitting;
 
-  async function onEmailSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setEmailLoading(true);
+  const onEmailSubmit = async (values: z.infer<typeof formSchema>) => {
+    const email = values.email;
 
     const res = await signIn("email", {
       email: email,
@@ -27,13 +47,10 @@ export const SignInForm = () => {
       toast.error("Make sure you have entered a valid email");
     } else if (res?.ok) {
       toast.success("Check your email for the login link");
-      setEmail("");
     } else {
       toast.error("Something went wrong. Please try again later.");
     }
-
-    setEmailLoading(false);
-  }
+  };
 
   return (
     <div className="grid gap-4">
@@ -87,20 +104,33 @@ export const SignInForm = () => {
         </div>
       </div>
 
-      <form onSubmit={onEmailSubmit} className="grid gap-6">
-        <div className="grid w-full items-center gap-1.5">
-          <Label htmlFor="email">Email</Label>
-          <Input
-            id="email"
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onEmailSubmit)}
+          className="grid gap-6"
+        >
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="">Server name</FormLabel>
+                <FormControl>
+                  <Input
+                    disabled={emailLoading}
+                    placeholder="Enter server name"
+                    {...field}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
           />
-        </div>
-        <Button type="submit" disabled={emailLoading} className="w-full">
-          {emailLoading ? <LoadingDots /> : <p>Generate Magic Link</p>}
-        </Button>
-      </form>
+          <Button variant="default" disabled={emailLoading}>
+            Create
+          </Button>
+        </form>
+      </Form>
     </div>
   );
 };

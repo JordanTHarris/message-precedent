@@ -25,7 +25,12 @@ export default function NavBar({ session }: { session: Session | null }) {
               Chat
             </Button>
             {session ? (
-              <UserDropdown session={session} />
+              <>
+                <Button variant="outline" onClick={() => router.push("/setup")}>
+                  Setup
+                </Button>
+                <UserDropdown session={session} />
+              </>
             ) : (
               <Button
                 disabled={pathname === "/login"}

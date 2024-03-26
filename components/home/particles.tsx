@@ -39,22 +39,26 @@ export default function ParticlesComponent({
   }, []);
 
   const particlesLoaded = async (container?: Container): Promise<void> => {
-    console.log(container);
+    // console.log(container);
   };
 
   const options = useMemo(
     () => getParticlesOptions(theme === "dark" ? "stars" : "default"),
+    // () => getParticlesOptions("default"),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [theme], // force re-render on theme changes
   );
 
+  if (!init) {
+    return null;
+  }
+
   return (
-    init && (
-      <Particles
-        className={className}
-        id="tsparticles"
-        particlesLoaded={particlesLoaded}
-        options={options}
-      />
-    )
+    <Particles
+      className={className}
+      id="tsparticles"
+      particlesLoaded={particlesLoaded}
+      options={options}
+    />
   );
 }
