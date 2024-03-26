@@ -3,6 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import * as z from "zod";
 // import { FileUpload } from "@/components/layout/file-upload";
 import { FileUpload } from "@/components/layout/custom-file-upload";
@@ -26,10 +27,24 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { useUploadThing } from "@/lib/uploadthing";
 
 const formSchema = z.object({
   name: z.string().min(1, { message: "Server name is required" }),
-  imageUrl: z.string().min(1, { message: "Server image is required" }),
+  // imageUrl: z.string().min(1, { message: "Server image is required" }),
+  // files: z.array(z.instanceof(File)).refine((files) => files.length > 0, {
+  //   message: "Server image is required",
+  // }),
+  files: z
+    .array(
+      z.instanceof(File),
+      // .refine((file) => file.size < 1024, 'File size must be less than 1kb'),
+    )
+    .min(1, "At least 1 file is required"),
+  // .refine(
+  //   (files) => files.every((file) => file.size < 1024),
+  //   'File size must be less than 1kb',
+  // ),
 });
 
 export function InitialModal() {
@@ -38,7 +53,7 @@ export function InitialModal() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
-      imageUrl: "",
+      files: [],
     },
   });
   const isLoading = form.formState.isSubmitting;
@@ -47,8 +62,25 @@ export function InitialModal() {
     setIsMounted(true);
   }, []);
 
+  const { startUpload, permittedFileInfo, isUploading } = useUploadThing(
+    "serverImage",
+    {
+      onClientUploadComplete: (res) => {
+        // onChange(res?.[0].url);
+        toast.success("Uploaded successfully");
+      },
+      onUploadError: (error) => {
+        toast.error(`Upload failed: ${error.message}`);
+      },
+      onUploadBegin: () => {
+        toast.info("Upload has begun");
+      },
+    },
+  );
+
   async function onSubmit(values: z.infer<typeof formSchema>) {
     console.log(values);
+    startUpload(values.files);
   }
 
   if (!isMounted) {
@@ -70,16 +102,20 @@ export function InitialModal() {
             <div className="flex items-center justify-center text-center">
               <FormField
                 control={form.control}
-                name="imageUrl"
+                name="files"
                 render={({ field }) => (
                   <FormItem>
                     <FormControl>
                       <FileUpload
                         endpoint="serverImage"
-                        value={field.value}
                         onChange={field.onChange}
+                        value={field.value}
+                        startUpload={startUpload}
+                        permittedFileInfo={permittedFileInfo}
+                        isUploading={isUploading}
                       />
                     </FormControl>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
