@@ -6,19 +6,19 @@ import { prisma } from "@/lib/prisma";
 export default async function SetupPage() {
   const user = await initialUser();
 
-  const server = await prisma.server.findFirst({
-    where: {
-      members: {
-        some: {
-          userId: user?.id,
-        },
-      },
-    },
-  });
+  // const server = await prisma.server.findFirst({
+  //   where: {
+  //     members: {
+  //       some: {
+  //         userId: user?.id,
+  //       },
+  //     },
+  //   },
+  // });
 
-  if (server) {
-    redirect(`/servers/${server.id}`);
-  }
+  // if (server) {
+  //   redirect(`/servers/${server.id}`);
+  // }
 
   return <InitialModal />;
 }

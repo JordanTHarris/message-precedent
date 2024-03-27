@@ -1,11 +1,12 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
-// import { FileUpload } from "@/components/layout/file-upload";
 import { FileUpload } from "@/components/layout/custom-file-upload";
 import { Button } from "@/components/ui/button";
 import {
@@ -31,10 +32,6 @@ import { useUploadThing } from "@/lib/uploadthing";
 
 const formSchema = z.object({
   name: z.string().min(1, { message: "Server name is required" }),
-  // imageUrl: z.string().min(1, { message: "Server image is required" }),
-  // files: z.array(z.instanceof(File)).refine((files) => files.length > 0, {
-  //   message: "Server image is required",
-  // }),
   files: z
     .array(
       z.instanceof(File),
@@ -49,6 +46,7 @@ const formSchema = z.object({
 
 export function InitialModal() {
   const [isMounted, setIsMounted] = useState(false);
+  const router = useRouter();
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -79,8 +77,24 @@ export function InitialModal() {
   );
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-    startUpload(values.files);
+    const uploadedFiles = await startUpload(values.files);
+    const fileUrl = uploadedFiles?.[0]?.url;
+
+    if (fileUrl) {
+      try {
+        await axios.post("/api/servers", {
+          name: values.name,
+          imageUrl: fileUrl,
+        });
+        form.reset();
+        router.refresh();
+        window.location.reload();
+      } catch (error) {
+        await axios.delete("api/uploadthing", {
+          data: { url: fileUrl },
+        });
+      }
+    }
   }
 
   if (!isMounted) {
