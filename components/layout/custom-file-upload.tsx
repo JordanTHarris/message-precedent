@@ -6,8 +6,10 @@ import { toast } from "sonner";
 import { generateClientDropzoneAccept } from "uploadthing/client";
 import { Button } from "@/components/ui/button";
 import { uploadFiles, useUploadThing } from "@/lib/uploadthing";
+import { cn } from "@/lib/utils";
 
 interface FileUploadProps {
+  className?: string;
   onChange: (files: File[]) => void;
   value?: File[] | null;
   endpoint: "serverImage" | "messageFile";
@@ -16,8 +18,8 @@ interface FileUploadProps {
   isUploading?: boolean;
 }
 
-// export function FileUpload({ onChange, value, endpoint }: FileUploadProps) {
 export function FileUpload({
+  className,
   onChange,
   value,
   endpoint,
@@ -41,59 +43,50 @@ export function FileUpload({
     onChange([]);
   };
 
-  // const { startUpload, permittedFileInfo, isUploading } = useUploadThing(
-  //   endpoint,
-  //   {
-  //     onClientUploadComplete: (res) => {
-  //       // onChange(res?.[0].url);
-  //       toast.success("Uploaded successfully");
-  //     },
-  //     onUploadError: (error) => {
-  //       toast.error(`Upload failed: ${error.message}`);
-  //     },
-  //     onUploadBegin: () => {
-  //       toast.info("Upload has begun");
-  //     },
-  //   },
-  // );
-
   const fileTypes = permittedFileInfo?.config
     ? Object.keys(permittedFileInfo?.config)
     : [];
 
-  const { getRootProps, getInputProps } = useDropzone({
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accept: fileTypes ? generateClientDropzoneAccept(fileTypes) : undefined,
+    maxFiles: 1,
   });
 
+  const dragColor = isDragActive ? "bg-secondary" : "bg-background";
+
   return (
-    <>
-      <div
-        {...getRootProps()}
-        className="flex flex-col items-center gap-4 rounded-xl border border-dashed p-16"
-      >
-        <input {...getInputProps()} disabled={files.length > 0} />
-        <div className="relative h-24 w-24">
-          {selectedFileUrl ? (
-            <>
-              <Image
-                src={selectedFileUrl}
-                alt="Uploaded image"
-                fill
-                className="rounded-full"
-              />
-              <Button
-                size={"icon"}
-                variant={"ghost"}
-                className="absolute right-0 top-0 h-8 w-8 rounded-full hover:bg-destructive"
-              >
-                <X onClick={() => removeFile()} />
-              </Button>
-            </>
-          ) : (
-            <FileImageIcon className="h-full w-full" />
-          )}
-        </div>
+    <div
+      {...getRootProps()}
+      className={cn(
+        className,
+        dragColor,
+        "flex flex-col items-center gap-4 rounded-xl border border-dashed p-16 hover:cursor-pointer",
+      )}
+    >
+      <input {...getInputProps()} />
+      <div className="relative h-24 w-24">
+        {selectedFileUrl ? (
+          <>
+            <Image
+              src={selectedFileUrl}
+              alt="Uploaded image"
+              fill
+              className="rounded-full"
+            />
+            <Button
+              size={"icon"}
+              variant={"ghost"}
+              className="absolute right-0 top-0 h-8 w-8 rounded-full hover:bg-destructive"
+              // onClick={() => removeFile()}
+              onClickCapture={() => removeFile()}
+            >
+              <X />
+            </Button>
+          </>
+        ) : (
+          <FileImageIcon className="h-full w-full" />
+        )}
       </div>
       {/* <Button
         type="button"
@@ -102,6 +95,6 @@ export function FileUpload({
       >
         Upload
       </Button> */}
-    </>
+    </div>
   );
 }

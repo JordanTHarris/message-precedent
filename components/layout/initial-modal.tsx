@@ -98,13 +98,13 @@ export function InitialModal() {
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <div className="flex items-center justify-center text-center">
               <FormField
                 control={form.control}
                 name="files"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="w-full">
                     <FormControl>
                       <FileUpload
                         endpoint="serverImage"
