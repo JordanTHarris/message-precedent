@@ -29,6 +29,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useUploadThing } from "@/lib/uploadthing";
+import { Loader2 } from "lucide-react";
 
 const formSchema = z.object({
   name: z.string().min(1, { message: "Server name is required" }),
@@ -77,6 +78,8 @@ export function InitialModal() {
   );
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    // TODO: resize image to 512x512 or something before upload
+
     const uploadedFiles = await startUpload(values.files);
     const fileUrl = uploadedFiles?.[0]?.url;
 
@@ -90,6 +93,7 @@ export function InitialModal() {
         router.refresh();
         window.location.reload();
       } catch (error) {
+        // Delete uploaded file if server creation fails
         await axios.delete("api/uploadthing", {
           data: { url: fileUrl },
         });
@@ -104,7 +108,7 @@ export function InitialModal() {
   return (
     <Dialog open={true}>
       <DialogContent>
-        <DialogHeader>
+        <DialogHeader className="pb-2">
           <DialogTitle>Customize your server</DialogTitle>
           <DialogDescription>
             Liven up your server by giving it a name and an image. You can
@@ -112,6 +116,11 @@ export function InitialModal() {
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
+          {isLoading && (
+            <div className="absolute z-10 flex h-full w-full items-center justify-center bg-background/60 ">
+              <Loader2 className="mx-auto h-12 w-12 animate-spin" />
+            </div>
+          )}
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <div className="flex items-center justify-center text-center">
               <FormField
