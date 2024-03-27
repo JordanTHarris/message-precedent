@@ -59,9 +59,9 @@ export function FileUpload({
     <div
       {...getRootProps()}
       className={cn(
+        "flex flex-col items-center gap-4 rounded-xl border border-dashed p-16 hover:cursor-pointer",
         className,
         dragColor,
-        "flex flex-col items-center gap-4 rounded-xl border border-dashed p-16 hover:cursor-pointer",
       )}
     >
       <input {...getInputProps()} />
@@ -88,13 +88,6 @@ export function FileUpload({
           <FileImageIcon className="h-full w-full" />
         )}
       </div>
-      {/* <Button
-        type="button"
-        disabled={files.length === 0}
-        onClick={() => startUpload(files)}
-      >
-        Upload
-      </Button> */}
     </div>
   );
 }

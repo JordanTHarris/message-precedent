@@ -2,12 +2,14 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
+import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
 import { FileUpload } from "@/components/layout/custom-file-upload";
+import { SpinningOverlay } from "@/components/layout/spinning-overlay";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -29,7 +31,6 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useUploadThing } from "@/lib/uploadthing";
-import { Loader2 } from "lucide-react";
 
 const formSchema = z.object({
   name: z.string().min(1, { message: "Server name is required" }),
@@ -117,9 +118,9 @@ export function InitialModal() {
         </DialogHeader>
         <Form {...form}>
           {isLoading && (
-            <div className="absolute z-10 flex h-full w-full items-center justify-center bg-background/60 ">
-              <Loader2 className="mx-auto h-12 w-12 animate-spin" />
-            </div>
+            <SpinningOverlay>
+              <Loader2 className="h-20 w-20" />
+            </SpinningOverlay>
           )}
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <div className="flex items-center justify-center text-center">
