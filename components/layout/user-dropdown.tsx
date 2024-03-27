@@ -2,11 +2,9 @@
 
 import { LogOut, User } from "lucide-react";
 import Image from "next/image";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
-import { useState } from "react";
-import Popover from "@/components/shared/popover";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,7 +15,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import prisma from "@/lib/prisma";
 
-export default async function UserDropdown({ session }: { session: Session }) {
+export async function UserDropdown({ session }: { session: Session }) {
   const { name, email, image } = session?.user || {};
   const router = useRouter();
 

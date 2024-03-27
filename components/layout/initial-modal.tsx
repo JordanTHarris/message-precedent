@@ -108,7 +108,7 @@ export function InitialModal() {
 
   return (
     <Dialog open={true}>
-      <DialogContent>
+      <DialogContent hideCloseButton>
         <DialogHeader className="pb-2">
           <DialogTitle>Customize your server</DialogTitle>
           <DialogDescription>

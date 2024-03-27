@@ -14,6 +14,7 @@
       "@/styles/*": ["styles/*"]
     },
     "strict": true,
+    "sourceMap": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,

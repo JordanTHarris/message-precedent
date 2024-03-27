@@ -43,8 +43,8 @@ export default function ParticlesComponent({
   };
 
   const options = useMemo(
-    () => getParticlesOptions(theme === "dark" ? "stars" : "default"),
-    // () => getParticlesOptions("default"),
+    // () => getParticlesOptions(theme === "dark" ? "stars" : "default"),
+    () => getParticlesOptions("default"),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [theme], // force re-render on theme changes
   );
