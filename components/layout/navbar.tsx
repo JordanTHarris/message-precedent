@@ -11,6 +11,11 @@ export default function NavBar({ session }: { session: Session | null }) {
   const router = useRouter();
   const pathname = usePathname();
 
+  const showNav =
+    !pathname.startsWith("/servers") && !pathname.startsWith("/login");
+
+  if (!showNav) return null;
+
   return (
     <>
       <div className="fixed top-0 z-30 flex w-full justify-center backdrop-blur-lg transition-all">

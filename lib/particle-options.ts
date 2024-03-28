@@ -3,7 +3,9 @@ import { cssHexValue } from "@/lib/utils";
 
 type ParticlesOptionsKeys = "default" | "stars";
 
-export function getParticlesOptions(key: ParticlesOptionsKeys): ISourceOptions {
+export function getParticlesOptions(
+  key: ParticlesOptionsKeys = "default",
+): ISourceOptions {
   const options: ISourceOptions = {
     default: {
       // background: {

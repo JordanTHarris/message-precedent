@@ -3,5 +3,9 @@ interface ProfileLayoutProps {
 }
 
 export default async function ProfileLayout({ children }: ProfileLayoutProps) {
-  return <>{children}</>;
+  return (
+    <div className="flex min-h-[100dvh] w-full flex-col items-center justify-center py-24">
+      {children}
+    </div>
+  );
 }

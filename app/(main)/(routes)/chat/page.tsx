@@ -2,9 +2,13 @@ import { redirect } from "next/navigation";
 import { InitialModal } from "@/components/layout/initial-modal";
 import { initialUser } from "@/lib/initial-user";
 import { prisma } from "@/lib/prisma";
+import { getCurrentUser, redirectToLogin } from "@/lib/session";
 
 export default async function SetupPage() {
-  const user = await initialUser();
+  const user = await getCurrentUser();
+  if (!user) {
+    redirectToLogin();
+  }
 
   const server = await prisma.server.findFirst({
     where: {
@@ -16,9 +20,5 @@ export default async function SetupPage() {
     },
   });
 
-  // if (server) {
-  //   redirect(`/servers/${server.id}`);
-  // }
-
-  return <InitialModal />;
+  redirect(`/servers/${server?.id || ""}`);
 }

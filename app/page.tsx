@@ -4,7 +4,7 @@ import ParticlesComponent from "@/components/home/particles";
 
 export default async function Home() {
   return (
-    <div className="max-w-xl px-5 xl:px-0">
+    <div className="flex min-h-[100dvh] w-full flex-col items-center justify-center py-24">
       <ParticlesComponent className="absolute inset-0 -z-10 h-[100dvh] w-screen" />
       <div className="flex select-none flex-col items-center justify-center gap-5">
         {/* <h1 className="text-center text-6xl font-semibold">Prophet Message</h1> */}

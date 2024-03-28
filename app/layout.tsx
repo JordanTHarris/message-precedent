@@ -37,13 +37,13 @@ export default async function RootLayout(props: {
           disableTransitionOnChange
         >
           <Nav />
-          <main className="flex min-h-[100dvh] w-full flex-col items-center justify-center py-24">
+          <div className="min-h-[100dvh]">
             {props.children}
             {props.modal}
-          </main>
+          </div>
           <Toaster richColors />
         </ThemeProvider>
-        <Analytics />
+        {/* <Analytics /> */}
       </body>
     </html>
   );
