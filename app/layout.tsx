@@ -5,8 +5,8 @@ import { Suspense } from "react";
 import { ThemeProvider } from "@/components/home/theme-provider";
 import Nav from "@/components/layout/nav";
 import { Toaster } from "@/components/ui/sonner";
+import { sfPro, fontSans } from "@/fonts/fonts";
 import { cn } from "@/lib/utils";
-import { sfPro, fontSans } from "./fonts";
 
 export const metadata: Metadata = {
   title: "Prophet Message",

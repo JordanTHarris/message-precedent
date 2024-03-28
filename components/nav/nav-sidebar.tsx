@@ -28,7 +28,7 @@ export async function NavSidebar() {
     <div className="w- flex h-full flex-col items-center space-y-4 bg-secondary py-3">
       <NavAction />
       <div className="w-full px-4">
-        <Separator className="" />
+        <Separator className="rounded-md h-1" />
       </div>
       <ScrollArea className="w-full flex-1">
         {servers.map((server) => (

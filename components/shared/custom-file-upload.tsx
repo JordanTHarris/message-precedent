@@ -1,11 +1,9 @@
 import { useDropzone } from "@uploadthing/react";
 import { FileImageIcon, X } from "lucide-react";
 import Image from "next/image";
-import { forwardRef, useCallback, useImperativeHandle, useState } from "react";
-import { toast } from "sonner";
+import { useCallback, useState } from "react";
 import { generateClientDropzoneAccept } from "uploadthing/client";
 import { Button } from "@/components/ui/button";
-import { uploadFiles, useUploadThing } from "@/lib/uploadthing";
 import { cn } from "@/lib/utils";
 
 interface FileUploadProps {

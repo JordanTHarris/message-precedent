@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { InitialModal } from "@/components/layout/initial-modal";
+import { InitialModal } from "@/components/modal/initial-modal";
 import { initialUser } from "@/lib/initial-user";
 import { prisma } from "@/lib/prisma";
 

@@ -1,5 +1,3 @@
-"use client";
-
 import { X, Server } from "lucide-react";
 import Image from "next/image";
 import { toast } from "sonner";
@@ -42,7 +40,6 @@ export function FileUpload({ onChange, value, endpoint }: FileUploadProps) {
           return files;
         }}
         onUploadError={(e) => {
-          // Todo: handle error
           toast.error(e.message);
         }}
       />

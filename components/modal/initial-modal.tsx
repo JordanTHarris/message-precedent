@@ -8,8 +8,8 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
-import { FileUpload } from "@/components/layout/custom-file-upload";
-import { SpinningOverlay } from "@/components/layout/spinning-overlay";
+import { FileUpload } from "@/components/shared/custom-file-upload";
+import { SpinningOverlay } from "@/components/shared/spinning-overlay";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,

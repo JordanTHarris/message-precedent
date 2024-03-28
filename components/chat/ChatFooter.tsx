@@ -1,8 +1,8 @@
 import { PlusCircle } from "lucide-react";
 import React, { useState, useRef } from "react";
-import useAutosizeTextArea from "@/components/layout/useAutosizeTextArea";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
+import useAutosizeTextArea from "@/lib/hooks/use-autosize-textarea";
 
 function ChatFooter({ user }: { user: any }) {
   const [message, setMessage] = useState("");
