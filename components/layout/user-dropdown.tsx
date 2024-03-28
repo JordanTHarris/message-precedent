@@ -13,9 +13,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import prisma from "@/lib/prisma";
 
-export async function UserDropdown({ session }: { session: Session }) {
+export function UserDropdown({ session }: { session: Session }) {
   const { name, email, image } = session?.user || {};
   const router = useRouter();
 
