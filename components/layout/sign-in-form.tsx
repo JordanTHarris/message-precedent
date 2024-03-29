@@ -114,20 +114,16 @@ export const SignInForm = () => {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="">Server name</FormLabel>
+                <FormLabel className="">Email</FormLabel>
                 <FormControl>
-                  <Input
-                    disabled={emailLoading}
-                    placeholder="Enter server name"
-                    {...field}
-                  />
+                  <Input disabled={emailLoading} {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
             )}
           />
           <Button variant="default" disabled={emailLoading}>
-            Create
+            Generate Magic Link
           </Button>
         </form>
       </Form>
