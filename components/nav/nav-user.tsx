@@ -33,12 +33,15 @@ export function NavUser({ user, size = 48 }: { user: User; size?: number }) {
           width={48}
           height={48}
           className={cn(
-            "rounded-full transition-all hover:rounded-[16px]",
+            "rounded-[24px] transition-all hover:rounded-[16px]",
             open && "rounded-[16px]",
           )}
         />
       </DropdownMenuTrigger>
-      <DropdownMenuContent side="right">
+      <DropdownMenuContent
+        onCloseAutoFocus={(e) => e.preventDefault()}
+        side="right"
+      >
         <DropdownMenuItem onClick={() => router.push("/profile")}>
           <UserIcon className="mr-2 h-4 w-4" />
           <div className="flex flex-col">

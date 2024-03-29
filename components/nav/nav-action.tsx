@@ -12,8 +12,7 @@ export function NavAction() {
     <ActionTooltip side="right" align="center" label="Add a server">
       <Button
         size="icon"
-        variant="default"
-        className="h-[48px] w-[48px] rounded-full"
+        className="h-[48px] w-[48px] rounded-[24px] transition-all hover:rounded-[16px]"
         onClick={() => onOpen("createServer")}
       >
         <Plus size={24} />
