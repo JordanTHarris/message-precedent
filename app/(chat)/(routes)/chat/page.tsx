@@ -6,9 +6,7 @@ import { getCurrentUser, redirectToLogin } from "@/lib/session";
 
 export default async function SetupPage() {
   const user = await getCurrentUser();
-  if (!user) {
-    redirectToLogin();
-  }
+  if (!user) return redirectToLogin();
 
   const server = await prisma.server.findFirst({
     where: {
