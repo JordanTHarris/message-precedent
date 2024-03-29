@@ -8,6 +8,8 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { currentUser } from "@/lib/current-user";
 import prisma from "@/lib/prisma";
+import { UserDropdown } from "../layout/user-dropdown";
+import { NavUser } from "./nav-user";
 
 export async function NavSidebar() {
   const user = await currentUser();
@@ -28,7 +30,7 @@ export async function NavSidebar() {
     <div className="w- flex h-full flex-col items-center space-y-4 bg-secondary py-3">
       <NavAction />
       <div className="w-full px-4">
-        <Separator className="rounded-md h-1" />
+        <Separator className="h-1 rounded-md" />
       </div>
       <ScrollArea className="w-full flex-1">
         {servers.map((server) => (
@@ -41,9 +43,7 @@ export async function NavSidebar() {
           </div>
         ))}
       </ScrollArea>
-      <Link href="/" className="flex w-full items-center justify-center">
-        <Home size={24} />
-      </Link>
+      <NavUser user={user} />
     </div>
   );
 }

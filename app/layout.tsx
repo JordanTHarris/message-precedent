@@ -2,8 +2,9 @@ import "./globals.css";
 import { Analytics } from "@vercel/analytics/react";
 import { Metadata, Viewport } from "next";
 import { Suspense } from "react";
-import { ThemeProvider } from "@/components/home/theme-provider";
 import Nav from "@/components/layout/nav";
+import { ModalProvider } from "@/components/providers/modal-provider";
+import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { sfPro, fontSans } from "@/fonts/fonts";
 import { cn } from "@/lib/utils";
@@ -41,6 +42,7 @@ export default async function RootLayout(props: {
             {props.children}
             {props.modal}
           </div>
+          <ModalProvider />
           <Toaster richColors />
         </ThemeProvider>
         {/* <Analytics /> */}
