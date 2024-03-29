@@ -1,20 +1,16 @@
-import { Home } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
-import { redirect } from "next/navigation";
 import { NavAction } from "@/components/nav/nav-action";
 import { NavItem } from "@/components/nav/nav-item";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { currentUser } from "@/lib/current-user";
 import prisma from "@/lib/prisma";
-import { UserDropdown } from "../layout/user-dropdown";
+import { redirectToLogin } from "@/lib/session";
 import { NavUser } from "./nav-user";
 
 export async function NavSidebar() {
   const user = await currentUser();
 
-  if (!user) return redirect("/");
+  if (!user) return redirectToLogin();
 
   const servers = await prisma.server.findMany({
     where: {
