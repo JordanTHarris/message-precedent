@@ -29,9 +29,6 @@ export default function NavBar({ session }: { session: Session | null }) {
             </Button>
             {session ? (
               <>
-                <Button variant="outline" onClick={() => router.push("/setup")}>
-                  Setup
-                </Button>
                 <UserDropdown session={session} />
               </>
             ) : (

@@ -33,7 +33,7 @@ export function NavItem({ id, imageUrl, name }: NavigationItemProps) {
         />
         <Button
           className={cn(
-            "group relative mx-3 flex h-[48px] w-[48px] overflow-hidden rounded-[24px] transition-all group-hover:rounded-[16px]",
+            "group relative mx-3 flex h-[48px] w-[48px] overflow-hidden rounded-full transition-all group-hover:rounded-[16px]",
             params?.serverId === id && "rounded-[16px]",
           )}
           onClick={onClick}

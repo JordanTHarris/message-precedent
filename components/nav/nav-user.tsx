@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
+import { useState } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,22 +15,27 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { cn } from "@/lib/utils";
 
 export function NavUser({ user, size = 48 }: { user: User; size?: number }) {
+  const [open, setOpen] = useState(false);
   const { name, email, image } = user || {};
   const router = useRouter();
 
   if (!email) return null;
 
   return (
-    <DropdownMenu>
+    <DropdownMenu open={open} onOpenChange={setOpen}>
       <DropdownMenuTrigger className="shrink-0 rounded-full">
         <Image
           alt={email}
           src={image || `https://avatars.dicebear.com/api/micah/${email}.svg`}
           width={48}
           height={48}
-          className="rounded-full"
+          className={cn(
+            "rounded-full transition-all hover:rounded-[16px]",
+            open && "rounded-[16px]",
+          )}
         />
       </DropdownMenuTrigger>
       <DropdownMenuContent side="right">
