@@ -18,6 +18,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useModal } from "@/lib/hooks/use-modal-store";
 import { ServerWithMembersWithUsers } from "@/types/types";
 
 interface ServerHeaderProps {
@@ -26,6 +27,7 @@ interface ServerHeaderProps {
 }
 
 export function ChannelsHeader({ server, role }: ServerHeaderProps) {
+  const { onOpen } = useModal();
   const isAdmin = role === MemberRole.ADMIN;
   const isModerator = isAdmin || role === MemberRole.MODERATOR;
 
@@ -43,7 +45,10 @@ export function ChannelsHeader({ server, role }: ServerHeaderProps) {
           className="w-56"
         >
           {isModerator && (
-            <DropdownMenuItem className="px-3 py-2 text-sm text-primary">
+            <DropdownMenuItem
+              className="px-3 py-2 text-sm text-primary"
+              onClick={() => onOpen("invite", { server })}
+            >
               Invite People
               <UserPlus2 className="ml-auto h-4 w-4" />
             </DropdownMenuItem>
