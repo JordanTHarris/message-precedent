@@ -5,6 +5,7 @@ import { CreateChannelModal } from "@/components/modal/create-channel-modal";
 import { CreateServerModal } from "@/components/modal/create-server-modal";
 import { EditServerModal } from "@/components/modal/edit-server-modal";
 import { InviteModal } from "@/components/modal/invite-modal";
+import { LeaveServerModal } from "@/components/modal/leave-server-modal";
 import { MembersModal } from "@/components/modal/members-modal";
 
 export function ModalProvider() {
@@ -23,6 +24,7 @@ export function ModalProvider() {
       <EditServerModal />
       <MembersModal />
       <CreateChannelModal />
+      <LeaveServerModal />
     </>
   );
 }

@@ -58,10 +58,6 @@ export function InviteModal() {
       <DialogContent>
         <DialogHeader className="pb-2">
           <DialogTitle>Invite friends</DialogTitle>
-          {/* <DialogDescription>
-            Liven up your server by giving it a name and an image. You can
-            change this later.
-          </DialogDescription> */}
         </DialogHeader>
         <div className="mt-2 flex items-center gap-x-2">
           <div className="flex flex-1 flex-col justify-center space-y-2">
