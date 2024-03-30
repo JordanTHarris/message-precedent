@@ -144,8 +144,10 @@ export function EditServerModal() {
   }
 
   function handleClose() {
-    // form.reset();
-    onClose();
+    if (!isLoading) {
+      form.reset();
+      onClose();
+    }
   }
 
   return (
