@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation";
 import { NavAction } from "@/components/nav/nav-action";
 import { NavItem } from "@/components/nav/nav-item";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -10,7 +11,11 @@ import { NavUser } from "./nav-user";
 export async function NavSidebar() {
   const user = await currentUser();
 
-  if (!user) return redirectToLogin();
+  // if (!user) return redirect("/login");
+  if (!user) {
+    redirectToLogin();
+    return null;
+  }
 
   // TODO: sort servers by member added date or custom order
   const servers = await prisma.server.findMany({

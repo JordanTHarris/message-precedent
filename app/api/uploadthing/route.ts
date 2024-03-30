@@ -3,6 +3,7 @@ import { createRouteHandler } from "uploadthing/next";
 
 import { UTApi } from "uploadthing/server";
 import { ourFileRouter } from "./core";
+import { currentUser } from "@/lib/current-user";
 
 // Export routes for Next App Router
 export const { GET, POST } = createRouteHandler({
@@ -13,6 +14,11 @@ export const { GET, POST } = createRouteHandler({
 });
 
 export async function DELETE(request: NextRequest) {
+  const user = await currentUser();
+  if (!user) {
+    return new NextResponse("Unauthorized", { status: 401 });
+  }
+
   const searchParams = request.nextUrl.searchParams;
   const url = searchParams.get("url");
   console.log("DELETE", url);

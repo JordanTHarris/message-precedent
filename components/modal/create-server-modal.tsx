@@ -75,7 +75,7 @@ export function CreateServerModal() {
 
     if (fileUrl) {
       try {
-        await axios.post("/api/serverss", {
+        await axios.post("/api/servers", {
           name: values.name,
           imageUrl: fileUrl,
         });
