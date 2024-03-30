@@ -1,3 +1,4 @@
+import { NextRequest, NextResponse } from "next/server";
 import { createRouteHandler } from "uploadthing/next";
 
 import { UTApi } from "uploadthing/server";
@@ -11,13 +12,21 @@ export const { GET, POST } = createRouteHandler({
   // config: { ... },
 });
 
-export async function DELETE(request: Request) {
-  const data = await request.json();
-  const newUrl = data.url.substring(data.url.lastIndexOf("/") + 1);
+export async function DELETE(request: NextRequest) {
+  const searchParams = request.nextUrl.searchParams;
+  const url = searchParams.get("url");
+  console.log("DELETE", url);
+  // const data = await request.json();
+
+  if (!url) {
+    return new NextResponse("Bad request", { status: 400 });
+  }
+
+  const newUrl = url.substring(url.lastIndexOf("/") + 1);
   const utapi = new UTApi();
   const response = await utapi.deleteFiles(newUrl);
 
   if (response.success) console.log("FILE_DELETED", response);
 
-  return Response.json({ message: "ok" });
+  return NextResponse.json({ message: "ok" });
 }

@@ -4,6 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
 import { Loader2 } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import * as z from "zod";
@@ -32,25 +33,51 @@ import { Input } from "@/components/ui/input";
 import { useModal } from "@/lib/hooks/use-modal-store";
 import { useUploadThing } from "@/lib/uploadthing";
 
-const formSchema = z.object({
-  name: z.string().min(1, { message: "Server name is required" }),
-  files: z.array(z.instanceof(File)).min(1, "At least 1 file is required"),
-});
+const formSchema = z
+  .object({
+    name: z.string().min(1, { message: "Server name is required" }),
+    files: z.array(z.instanceof(File)).optional(),
+    imageUrl: z.string().url().optional(),
+  })
+  .refine(
+    (data) => {
+      const hasFiles = Boolean(data.files?.length);
+      const hasImageUrl = Boolean(data.imageUrl);
 
-export function CreateServerModal() {
-  const { isOpen, onClose, type } = useModal();
+      if (!hasFiles && !hasImageUrl) {
+        return false;
+      }
+
+      return true;
+    },
+    {
+      message: "Server image is required",
+    },
+  );
+
+export function EditServerModal() {
+  const { isOpen, onClose, type, data } = useModal();
   const router = useRouter();
 
-  const isModalOpen = isOpen && type === "createServer";
+  const isModalOpen = isOpen && type === "editServer";
+  const { server } = data;
 
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
       files: [],
+      imageUrl: "",
     },
   });
   const isLoading = form.formState.isSubmitting;
+
+  useEffect(() => {
+    if (server) {
+      form.setValue("name", server.name);
+      form.setValue("imageUrl", server.imageUrl);
+    }
+  }, [server, form]);
 
   const { startUpload, permittedFileInfo, isUploading } = useUploadThing(
     "serverImage",
@@ -70,40 +97,64 @@ export function CreateServerModal() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     // TODO: resize image to 512x512 or something before upload
 
-    const uploadedFiles = await startUpload(values.files);
-    const fileUrl = uploadedFiles?.[0]?.url;
+    const currentFileUrl = server?.imageUrl;
+    const fileSelected = values.files?.[0] || null;
+    const isNameChanged = server?.name !== values.name;
+    let newFileUrl = "";
 
-    if (fileUrl) {
-      try {
-        await axios.post("/api/serverss", {
+    if (fileSelected) {
+      const uploadedFiles = await startUpload(values.files || []);
+      newFileUrl = uploadedFiles?.[0]?.url || "";
+    }
+
+    try {
+      if (isNameChanged || newFileUrl) {
+        await axios.patch(`/api/servers/${server?.id}`, {
           name: values.name,
-          imageUrl: fileUrl,
+          imageUrl: newFileUrl || currentFileUrl,
         });
+
+        // Delete delete old image if new one is uploaded and added
+        if (newFileUrl) {
+          try {
+            await axios.delete(`/api/uploadthing?url=${currentFileUrl}`);
+          } catch (deleteError) {
+            console.log(`Failed to delete old image`);
+          }
+        }
+
         form.reset();
         router.refresh();
         onClose();
-      } catch (error) {
-        // Delete uploaded file if server creation fails
-        await axios.delete(`/api/uploadthing?url=${fileUrl}`);
+      } else {
+        toast.error("No changes made to server");
+      }
+    } catch (error) {
+      toast.error("Failed to update server");
+
+      // Delete uploaded file if db update fails
+      if (currentFileUrl) {
+        try {
+          await axios.delete(`/api/uploadthing?url=${newFileUrl}`);
+        } catch (deleteError) {
+          console.log(`Failed to delete old image`);
+        }
       }
     }
   }
 
   function handleClose() {
-    if (!isLoading) {
-      form.reset();
-      onClose();
-    }
+    // form.reset();
+    onClose();
   }
 
   return (
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
       <DialogContent>
         <DialogHeader className="pb-2">
-          <DialogTitle>Create your server</DialogTitle>
+          <DialogTitle>Edit your server</DialogTitle>
           <DialogDescription>
-            Liven up your server by giving it a name and an image. You can
-            change this later.
+            Liven up your server with a name and an image
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -124,6 +175,7 @@ export function CreateServerModal() {
                         endpoint="serverImage"
                         onChange={field.onChange}
                         value={field.value}
+                        fileUrl={server?.imageUrl}
                         startUpload={startUpload}
                         permittedFileInfo={permittedFileInfo}
                         isUploading={isUploading}
@@ -144,7 +196,6 @@ export function CreateServerModal() {
                   <FormControl>
                     <Input
                       disabled={isLoading}
-                      className=""
                       placeholder="Enter server name"
                       {...field}
                     />
@@ -155,7 +206,7 @@ export function CreateServerModal() {
             />
             <DialogFooter className="">
               <Button variant="default" disabled={isLoading} className="w-full">
-                Create
+                Save
               </Button>
             </DialogFooter>
           </form>

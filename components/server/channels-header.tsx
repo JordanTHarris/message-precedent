@@ -36,7 +36,7 @@ export function ChannelsHeader({ server, role }: ServerHeaderProps) {
       <DropdownMenu>
         <DropdownMenuTrigger asChild className="">
           <Button variant="ghost" className="w-full">
-            {server.name}
+            <p className="truncate text-base">{server.name}</p>
             <ChevronDown className="ml-auto h-5 w-5" />
           </Button>
         </DropdownMenuTrigger>
@@ -54,7 +54,10 @@ export function ChannelsHeader({ server, role }: ServerHeaderProps) {
             </DropdownMenuItem>
           )}
           {isAdmin && (
-            <DropdownMenuItem className="px-3 py-2 text-sm">
+            <DropdownMenuItem
+              className="px-3 py-2 text-sm"
+              onClick={() => onOpen("editServer", { server })}
+            >
               Server Settings
               <Settings className="ml-auto h-4 w-4 " />
             </DropdownMenuItem>
