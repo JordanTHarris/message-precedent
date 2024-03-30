@@ -12,6 +12,7 @@ export async function NavSidebar() {
 
   if (!user) return redirectToLogin();
 
+  // TODO: sort servers by member added date or custom order
   const servers = await prisma.server.findMany({
     where: {
       members: {
