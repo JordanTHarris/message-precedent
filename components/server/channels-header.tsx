@@ -63,7 +63,10 @@ export function ChannelsHeader({ server, role }: ServerHeaderProps) {
             </DropdownMenuItem>
           )}
           {isAdmin && (
-            <DropdownMenuItem className="px-3 py-2 text-sm">
+            <DropdownMenuItem
+              className="px-3 py-2 text-sm"
+              onClick={() => onOpen("members", { server })}
+            >
               Manage Members
               <Users2 className="ml-auto h-4 w-4" />
             </DropdownMenuItem>

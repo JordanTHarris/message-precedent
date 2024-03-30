@@ -55,7 +55,7 @@ export function InviteModal() {
 
   return (
     <Dialog open={isModalOpen} onOpenChange={onClose}>
-      <DialogContent hideCloseButton>
+      <DialogContent>
         <DialogHeader className="pb-2">
           <DialogTitle>Invite friends</DialogTitle>
           {/* <DialogDescription>
