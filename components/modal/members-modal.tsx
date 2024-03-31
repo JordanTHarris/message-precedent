@@ -109,6 +109,7 @@ export function MembersModal() {
                 src={member.user.image || ""}
                 alt={member.user.name || ""}
                 fallback={member.user.name || ""}
+                className="h-7 w-7 md:h-10 md:w-10"
               />
               <div className="flex flex-col gap-y-1">
                 <div className="flex items-center text-sm font-semibold">

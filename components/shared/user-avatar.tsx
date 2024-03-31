@@ -24,18 +24,10 @@ export default function UserAvatar({
       .toUpperCase() || "";
 
   return (
-    <Avatar>
-      <AvatarImage
-        src={src}
-        alt={alt || "User Avatar"}
-        className={cn("h-7 w-7 md:h-10 md:w-10", className)}
-      />
+    <Avatar className={className}>
+      <AvatarImage src={src} alt={alt || "User Avatar"} className={className} />
       <AvatarFallback>
-        {fallback ? (
-          fallbackName
-        ) : (
-          <User2 className="h-7 w-7 md:h-10 md:w-10" />
-        )}
+        {fallback ? fallbackName : <User2 className={className} />}
       </AvatarFallback>
     </Avatar>
   );
