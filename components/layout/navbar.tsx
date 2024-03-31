@@ -3,9 +3,9 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { Session } from "next-auth";
-import { UserDropdown } from "@/components/layout/user-dropdown";
+import { ThemeToggle } from "@/components/shared/theme-toggle";
+import { UserDropdown } from "@/components/shared/user-dropdown";
 import { Button } from "@/components/ui/button";
-import { ThemeToggle } from "../home/ThemeToggle";
 
 export default function NavBar({ session }: { session: Session | null }) {
   const router = useRouter();

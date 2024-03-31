@@ -86,7 +86,7 @@ export function ChannelsHeader({ server, role }: ServerHeaderProps) {
           {isModerator && <DropdownMenuSeparator />}
           {isAdmin && (
             <DropdownMenuItem
-              className="px-3 py-2 text-sm text-destructive"
+              className="px-3 py-2 text-sm text-destructive hover:!bg-destructive hover:!text-destructive-foreground"
               onClick={() => onOpen("deleteServer", { server })}
             >
               Delete Server
@@ -95,7 +95,7 @@ export function ChannelsHeader({ server, role }: ServerHeaderProps) {
           )}
           {!isAdmin && (
             <DropdownMenuItem
-              className="px-3 py-2 text-sm"
+              className="px-3 py-2 text-sm text-destructive hover:!bg-destructive hover:!text-destructive-foreground"
               onClick={() => onOpen("leaveServer", { server })}
             >
               Leave Server

@@ -27,7 +27,7 @@ export function ActionTooltip({
         <TooltipContent
           side={side}
           align={align}
-          className="bg-secondary text-foreground"
+          className="bg-popover text-foreground"
         >
           <p className="text-sm font-semibold capitalize">
             {label.toLowerCase()}
