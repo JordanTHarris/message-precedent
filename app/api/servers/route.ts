@@ -6,13 +6,10 @@ import { prisma } from "@/lib/prisma";
 
 export async function POST(req: Request) {
   try {
-    const { name, imageUrl } = await req.json();
     const user = await currentUser();
+    if (!user) return new NextResponse("Unauthorized", { status: 401 });
 
-    if (!user) {
-      return new NextResponse("Unauthorized", { status: 401 });
-    }
-
+    const { name, imageUrl } = await req.json();
     const server = await prisma.server.create({
       data: {
         userId: user.id,

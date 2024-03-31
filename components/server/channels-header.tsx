@@ -34,8 +34,11 @@ export function ChannelsHeader({ server, role }: ServerHeaderProps) {
   return (
     <div>
       <DropdownMenu>
-        <DropdownMenuTrigger asChild className="">
-          <Button variant="ghost" className="w-full">
+        <DropdownMenuTrigger asChild>
+          <Button
+            variant="ghost"
+            className="h-12 w-full rounded-none border-b-2 border-secondary"
+          >
             <p className="truncate text-base">{server.name}</p>
             <ChevronDown className="ml-auto h-5 w-5" />
           </Button>
@@ -82,7 +85,10 @@ export function ChannelsHeader({ server, role }: ServerHeaderProps) {
           )}
           {isModerator && <DropdownMenuSeparator />}
           {isAdmin && (
-            <DropdownMenuItem className="px-3 py-2 text-sm text-destructive">
+            <DropdownMenuItem
+              className="px-3 py-2 text-sm text-destructive"
+              onClick={() => onOpen("deleteServer", { server })}
+            >
               Delete Server
               <Trash2 className="ml-auto h-4 w-4" />
             </DropdownMenuItem>
