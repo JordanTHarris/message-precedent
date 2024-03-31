@@ -76,7 +76,7 @@ export function InviteModal() {
                 disabled={isLoading}
               >
                 {copied ? (
-                  <Check className="h-5 w-5" />
+                  <Check className="h-5 w-5 text-green-500" />
                 ) : (
                   <Clipboard className="h-5 w-5" />
                 )}

@@ -24,7 +24,11 @@ export function ActionTooltip({
     <TooltipProvider>
       <Tooltip delayDuration={50}>
         <TooltipTrigger asChild>{children}</TooltipTrigger>
-        <TooltipContent side={side} align={align} className="bg-secondary">
+        <TooltipContent
+          side={side}
+          align={align}
+          className="bg-secondary text-foreground"
+        >
           <p className="text-sm font-semibold capitalize">
             {label.toLowerCase()}
           </p>

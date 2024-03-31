@@ -39,8 +39,8 @@ import { ServerWithMembersWithUsers } from "@/types/types";
 
 const roleIcons = {
   GUEST: null,
-  MODERATOR: <ShieldCheck className="ml-2 h-4 w-4" />,
-  ADMIN: <ShieldAlert className="ml-2 h-4 w-4" />,
+  MODERATOR: <ShieldCheck className="ml-2 h-4 w-4 text-emerald-500" />,
+  ADMIN: <ShieldAlert className="ml-2 h-4 w-4 text-rose-500" />,
 };
 
 export function MembersModal() {
@@ -136,7 +136,7 @@ export function MembersModal() {
                             <DropdownMenuItem
                               onClick={() => onRoleChange(member.id, "GUEST")}
                             >
-                              <Shield className="mr-2 h-4 w-4" />
+                              <Shield className="mr-2 h-4 w-4 text-sky-500" />
                               <p className="mr-2">Guest</p>
                               {member.role === "GUEST" && (
                                 <Check className="ml-auto h-4 w-4" />
@@ -147,7 +147,7 @@ export function MembersModal() {
                                 onRoleChange(member.id, "MODERATOR")
                               }
                             >
-                              <ShieldCheck className="mr-2 h-4 w-4" />
+                              <ShieldCheck className="mr-2 h-4 w-4 text-emerald-500" />
                               <p className="mr-2">Moderator</p>
                               {member.role === "MODERATOR" && (
                                 <Check className="ml-auto h-4 w-4" />
@@ -157,8 +157,11 @@ export function MembersModal() {
                         </DropdownMenuPortal>
                       </DropdownMenuSub>
                       <DropdownMenuSeparator />
-                      <DropdownMenuItem onClick={() => onKick(member.id)}>
-                        <Gavel className="mr-2 h-4 w-4" />
+                      <DropdownMenuItem
+                        className="text-destructive hover:!text-destructive"
+                        onClick={() => onKick(member.id)}
+                      >
+                        <Gavel className="text mr-2 h-4 w-4" />
                         Kick
                       </DropdownMenuItem>
                     </DropdownMenuContent>
