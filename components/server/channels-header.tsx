@@ -2,8 +2,8 @@
 
 import { MemberRole } from "@prisma/client";
 import {
+  ArrowDownRightFromSquare,
   ChevronDown,
-  LogOut,
   PlusCircle,
   Settings,
   Trash2,
@@ -99,7 +99,7 @@ export function ChannelsHeader({ server, role }: ServerHeaderProps) {
               onClick={() => onOpen("leaveServer", { server })}
             >
               Leave Server
-              <LogOut className="ml-auto h-4 w-4" />
+              <ArrowDownRightFromSquare className="ml-auto h-4 w-4" />
             </DropdownMenuItem>
           )}
         </DropdownMenuContent>

@@ -50,6 +50,9 @@ const CommandInput = React.forwardRef<
         className,
       )}
       {...props}
+      // keep from zooming in on mobile
+      onTouchStart={(e) => (e.currentTarget.style.fontSize = "16px")}
+      onBlur={(e) => (e.currentTarget.style.fontSize = "")}
     />
   </div>
 ));
