@@ -159,7 +159,7 @@ export function MembersModal() {
                       </DropdownMenuSub>
                       <DropdownMenuSeparator />
                       <DropdownMenuItem
-                        className="text-destructive hover:!text-destructive"
+                        className="text-destructive hover:!bg-destructive hover:!text-destructive-foreground"
                         onClick={() => onKick(member.id)}
                       >
                         <Gavel className="text mr-2 h-4 w-4" />
