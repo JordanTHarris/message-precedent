@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { ChannelType } from "@prisma/client";
 import axios from "axios";
 import { Loader2 } from "lucide-react";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import qs from "query-string";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -48,43 +48,40 @@ const formSchema = z.object({
   type: z.nativeEnum(ChannelType),
 });
 
-export function CreateChannelModal() {
+export function EditChannelModal() {
   const { isOpen, onClose, type, data } = useModal();
   const router = useRouter();
-  const params = useParams();
 
-  const isModalOpen = isOpen && type === "createChannel";
-  const { channelType } = data;
+  const isModalOpen = isOpen && type === "editChannel";
+  const { channel, server } = data;
 
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: "",
-      type: channelType || ChannelType.TEXT,
+      type: channel?.type || ChannelType.TEXT,
     },
   });
   const isLoading = form.formState.isSubmitting;
 
   useEffect(() => {
-    if (channelType) {
-      form.setValue("type", channelType);
-    } else {
-      form.setValue("type", ChannelType.TEXT);
+    if (channel) {
+      form.setValue("name", channel.name);
+      form.setValue("type", channel.type);
     }
-  }, [channelType, form]);
+  }, [form, channel]);
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       const url = qs.stringifyUrl({
-        url: "/api/channels",
+        url: `/api/channels/${channel?.id}`,
         query: {
-          serverId: params?.serverId,
+          serverId: server?.id,
         },
       });
-      await axios.post(url, values);
+      await axios.patch(url, values);
       form.reset();
       router.refresh();
-      toast.success(`Created ${values.name}`);
       onClose();
     } catch (error) {
       console.log(error);
@@ -102,7 +99,7 @@ export function CreateChannelModal() {
     <Dialog open={isModalOpen} onOpenChange={handleClose}>
       <DialogContent>
         <DialogHeader className="pb-2">
-          <DialogTitle>Create Channel</DialogTitle>
+          <DialogTitle>Edit Channel</DialogTitle>
         </DialogHeader>
         <Form {...form}>
           {isLoading && (
@@ -122,6 +119,7 @@ export function CreateChannelModal() {
                       disabled={isLoading}
                       className=""
                       placeholder="Enter channel name"
+                      autoComplete="off"
                       {...field}
                     />
                   </FormControl>
@@ -159,7 +157,7 @@ export function CreateChannelModal() {
             />
             <DialogFooter className="">
               <Button variant="default" disabled={isLoading} className="w-full">
-                Create
+                Save
               </Button>
             </DialogFooter>
           </form>
