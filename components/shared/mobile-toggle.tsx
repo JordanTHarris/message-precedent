@@ -12,7 +12,7 @@ export function MobileToggle({ serverId }: { serverId: string }) {
           <Menu />
         </Button>
       </SheetTrigger>
-      <SheetContent side="left" className="flex gap-0 p-0">
+      <SheetContent side="left" className="flex gap-0 p-0" hideCloseButton>
         <div className="w-[72px]">
           <NavSidebar />
         </div>

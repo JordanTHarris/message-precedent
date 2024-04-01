@@ -37,11 +37,7 @@ export async function NavSidebar() {
       <ScrollArea className="w-full flex-1">
         {servers.map((server) => (
           <div key={server.id} className="mb-4">
-            <NavItem
-              id={server.id}
-              imageUrl={server.imageUrl}
-              name={server.name}
-            />
+            <NavItem id={server.id} imageUrl={server.imageUrl} name={server.name} />
           </div>
         ))}
       </ScrollArea>

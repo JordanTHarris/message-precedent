@@ -1,7 +1,7 @@
+import { redirect } from "next/navigation";
 import { currentUser } from "@/lib/current-user";
 import prisma from "@/lib/prisma";
 import { redirectToLogin } from "@/lib/session";
-import { redirect } from "next/navigation";
 
 interface ServerIdPageProps {
   params: {
