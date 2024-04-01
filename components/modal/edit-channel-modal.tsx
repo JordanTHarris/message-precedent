@@ -119,7 +119,6 @@ export function EditChannelModal() {
                       disabled={isLoading}
                       className=""
                       placeholder="Enter channel name"
-                      autoComplete="off"
                       {...field}
                     />
                   </FormControl>

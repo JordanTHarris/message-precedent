@@ -105,10 +105,7 @@ export const SignInForm = () => {
       </div>
 
       <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(onEmailSubmit)}
-          className="grid gap-6"
-        >
+        <form onSubmit={form.handleSubmit(onEmailSubmit)} className="grid gap-6">
           <FormField
             control={form.control}
             name="email"
@@ -116,7 +113,12 @@ export const SignInForm = () => {
               <FormItem>
                 <FormLabel className="">Email</FormLabel>
                 <FormControl>
-                  <Input disabled={emailLoading} {...field} />
+                  <Input
+                    type="email"
+                    disabled={emailLoading}
+                    {...field}
+                    autoComplete="email"
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
