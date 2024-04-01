@@ -27,12 +27,7 @@ export default async function RootLayout(props: {
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body
-        className={cn(
-          "bg-background font-sans antialiased",
-          fontInter.variable,
-        )}
-      >
+      <body className={cn("bg-background font-sans antialiased", fontInter.variable)}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
@@ -40,7 +35,7 @@ export default async function RootLayout(props: {
           disableTransitionOnChange
         >
           <Nav />
-          <div className="min-h-[100dvh]">
+          <div className="h-[100dvh]">
             {props.children}
             {props.modal}
           </div>
