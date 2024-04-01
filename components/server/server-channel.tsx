@@ -43,10 +43,10 @@ export function ServerChannel({ channel, server, role }: ServerChannelProps) {
       {channel.name !== "general" && role !== MemberRole.GUEST && (
         <div className="ml-auto flex items-center gap-x-2">
           <ActionTooltip label="Edit" side="top">
-            <Edit2 className="h-4 w-4 scale-0 transition-transform group-hover:scale-100" />
+            <Edit2 className="h-4 w-4 scale-0 transition-transform hover:text-primary-foreground group-hover:scale-100" />
           </ActionTooltip>
           <ActionTooltip label="Delete" side="top">
-            <Trash2 className="h-4 w-4 scale-0 transition-transform group-hover:scale-100" />
+            <Trash2 className="h-4 w-4 scale-0 transition-transform hover:text-primary-foreground group-hover:scale-100" />
           </ActionTooltip>
         </div>
       )}

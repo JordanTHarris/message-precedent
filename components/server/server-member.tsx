@@ -31,7 +31,7 @@ export function ServerMember({ member, server }: ServerMemberProps) {
         variant="ghost"
         size="icon"
         className={cn(
-          "mb-1 flex w-full items-center justify-start gap-x-2 p-2",
+          "mb-1 flex w-full items-center justify-start gap-x-2 p-2 text-muted-foreground",
           params?.userId === member.user.id && "text-primary-foreground",
         )}
       >
@@ -43,7 +43,7 @@ export function ServerMember({ member, server }: ServerMemberProps) {
         />
         <p
           className={cn(
-            "text-sm font-semibold text-muted-foreground",
+            "text-sm font-semibold",
             params?.userId === member.user.id && "text-primary-foreground",
           )}
         >

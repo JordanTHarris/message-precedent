@@ -65,7 +65,10 @@ export async function ChannelsSidebar({ serverId }: ServerSidebarProps) {
     (channel) => channel.type === ChannelType.VIDEO,
   );
 
-  const members = server?.members.filter((member) => member.userId !== user.id);
+  // don't show yourself
+  // const members = server?.members.filter((member) => member.userId !== user.id);
+
+  const members = server?.members;
   const role = server.members.find((member) => member.userId === user.id)?.role;
 
   return (
