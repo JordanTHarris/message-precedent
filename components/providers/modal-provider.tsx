@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { CreateChannelModal } from "@/components/modal/create-channel-modal";
 import { CreateServerModal } from "@/components/modal/create-server-modal";
+import { DeleteChannelModal } from "@/components/modal/delete-channel-modal";
 import { DeleteServerModal } from "@/components/modal/delete-server-modal";
 import { EditServerModal } from "@/components/modal/edit-server-modal";
 import { InviteModal } from "@/components/modal/invite-modal";
@@ -21,12 +22,13 @@ export function ModalProvider() {
   return (
     <>
       <CreateServerModal />
-      <InviteModal />
-      <EditServerModal />
-      <MembersModal />
       <CreateChannelModal />
-      <LeaveServerModal />
+      <DeleteChannelModal />
       <DeleteServerModal />
+      <EditServerModal />
+      <InviteModal />
+      <LeaveServerModal />
+      <MembersModal />
     </>
   );
 }

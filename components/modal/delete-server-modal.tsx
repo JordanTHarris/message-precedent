@@ -27,7 +27,7 @@ export function DeleteServerModal() {
 
   const [isLoading, setIsLoading] = useState(false);
 
-  async function onLeave() {
+  async function onClick() {
     try {
       setIsLoading(true);
 
@@ -57,9 +57,7 @@ export function DeleteServerModal() {
           <DialogTitle className="text-destructive">Delete Server</DialogTitle>
           <DialogDescription>
             Are you sure you want to do delete{" "}
-            <span className="font-semibold text-foreground">
-              {server?.name}
-            </span>
+            <span className="font-semibold text-foreground">{server?.name}</span>
             ?<br />
             This action cannot be undone.
           </DialogDescription>
@@ -68,7 +66,7 @@ export function DeleteServerModal() {
           <Button variant="outline" disabled={isLoading} onClick={onClose}>
             Cancel
           </Button>
-          <Button variant="destructive" disabled={isLoading} onClick={onLeave}>
+          <Button variant="destructive" disabled={isLoading} onClick={onClick}>
             Delete
           </Button>
         </DialogFooter>
