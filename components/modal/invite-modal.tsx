@@ -63,8 +63,9 @@ export function InviteModal() {
               <Input
                 name="invite-link"
                 className=""
-                defaultValue={inviteUrl}
+                value={inviteUrl}
                 disabled={isLoading}
+                readOnly
               />
               <Button variant="ghost" size="icon" onClick={onCopy} disabled={isLoading}>
                 {copied ? (
