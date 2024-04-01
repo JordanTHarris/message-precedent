@@ -62,7 +62,7 @@ export function ServerSearch({ data }: ServerSearchProps) {
     <>
       <Button
         variant="ghost"
-        className="group w-full gap-x-2 p-2"
+        className="group w-full gap-x-2 p-2 text-muted-foreground"
         onClick={() => setOpen(true)}
       >
         <Search className="h-4 w-4" />

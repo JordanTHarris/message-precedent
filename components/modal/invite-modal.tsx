@@ -40,10 +40,7 @@ export function InviteModal() {
   async function onNew() {
     try {
       setIsLoading(true);
-      const response = await axios.patch(
-        `/api/servers/${server?.id}/invite-code`,
-        {},
-      );
+      const response = await axios.patch(`/api/servers/${server?.id}/invite-code`, {});
       // reload modal with new invite code
       onOpen("invite", { server: response.data });
     } catch (error) {
@@ -66,15 +63,10 @@ export function InviteModal() {
               <Input
                 name="invite-link"
                 className=""
-                value={inviteUrl}
+                defaultValue={inviteUrl}
                 disabled={isLoading}
               />
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={onCopy}
-                disabled={isLoading}
-              >
+              <Button variant="ghost" size="icon" onClick={onCopy} disabled={isLoading}>
                 {copied ? (
                   <Check className="h-5 w-5 text-green-500" />
                 ) : (

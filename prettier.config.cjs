@@ -3,7 +3,7 @@ module.exports = {
   bracketSpacing: true,
   semi: true,
   trailingComma: "all",
-  printWidth: 80,
+  printWidth: 90,
   tabWidth: 2,
   plugins: ["prettier-plugin-tailwindcss"],
 };
