@@ -49,7 +49,7 @@ export function ChannelsHeader({ server, role }: ServerHeaderProps) {
         >
           {isModerator && (
             <DropdownMenuItem
-              className="px-3 py-2 text-sm text-primary"
+              className="px-3 py-2 text-sm text-primary hover:!bg-primary hover:!text-primary-foreground"
               onClick={() => onOpen("invite", { server })}
             >
               Invite People

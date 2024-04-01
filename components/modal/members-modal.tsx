@@ -3,6 +3,7 @@
 import axios from "axios";
 import {
   Check,
+  Crown,
   Gavel,
   Loader2,
   MoreVertical,
@@ -40,7 +41,8 @@ import { ServerWithMembersWithUsers } from "@/types/types";
 const roleIcons = {
   GUEST: null,
   MODERATOR: <ShieldCheck className="ml-2 h-4 w-4 text-emerald-500" />,
-  ADMIN: <ShieldAlert className="ml-2 h-4 w-4 text-rose-500" />,
+  // ADMIN: <ShieldAlert className="ml-2 h-4 w-4 text-rose-500" />,
+  ADMIN: <Crown className="ml-2 h-4 w-4 text-amber-500" />,
 };
 
 export function MembersModal() {
@@ -98,9 +100,7 @@ export function MembersModal() {
       <DialogContent>
         <DialogHeader className="pb-2">
           <DialogTitle className="">Manage Members</DialogTitle>
-          <DialogDescription>
-            {server?.members.length} Members
-          </DialogDescription>
+          <DialogDescription>{server?.members.length} Members</DialogDescription>
         </DialogHeader>
         <ScrollArea className="mt-8 max-h-[420px] pr-6">
           {server?.members.map((member) => (
@@ -144,9 +144,7 @@ export function MembersModal() {
                               )}
                             </DropdownMenuItem>
                             <DropdownMenuItem
-                              onClick={() =>
-                                onRoleChange(member.id, "MODERATOR")
-                              }
+                              onClick={() => onRoleChange(member.id, "MODERATOR")}
                             >
                               <ShieldCheck className="mr-2 h-4 w-4 text-emerald-500" />
                               <p className="mr-2">Moderator</p>

@@ -1,12 +1,17 @@
-import { Inter as FontSans } from "next/font/google";
+import { Inter, Open_Sans } from "next/font/google";
 import localFont from "next/font/local";
 
-export const sfPro = localFont({
-  src: "./SF-Pro-Display-Medium.otf",
-  variable: "--font-sf",
+export const fontInter = Inter({
+  subsets: ["latin"],
+  variable: "--font-sans",
 });
 
-export const fontSans = FontSans({
+export const fontOpenSans = Open_Sans({
   subsets: ["latin"],
+  variable: "--font-sans",
+});
+
+export const fontGG = localFont({
+  src: "./gg sans Medium.ttf",
   variable: "--font-sans",
 });
