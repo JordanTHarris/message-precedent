@@ -133,7 +133,7 @@ export function EditChannelModal() {
                 <FormItem>
                   <FormLabel>Channel Type</FormLabel>
                   <Select
-                    disabled={isLoading}
+                    disabled={true}
                     onValueChange={field.onChange}
                     defaultValue={field.value}
                   >
