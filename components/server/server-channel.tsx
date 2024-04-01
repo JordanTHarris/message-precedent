@@ -5,7 +5,7 @@ import { Edit2, Hash, Lock, Mic, Trash2, Video } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { ActionTooltip } from "@/components/shared/action-tooltip";
 import { Button } from "@/components/ui/button";
-import { useModal } from "@/lib/hooks/use-modal-store";
+import { ModalType, useModal } from "@/lib/hooks/use-modal-store";
 import { cn } from "@/lib/utils";
 
 interface ServerChannelProps {
@@ -27,17 +27,31 @@ export function ServerChannel({ channel, server, role }: ServerChannelProps) {
 
   const icon = iconMap[channel.type];
 
+  function onClick() {
+    router.push(`/servers/${params?.serverId}/channels/${channel.id}`);
+  }
+
+  // stop propagation to prevent clicking through to outer button
+  function onAction(e: React.MouseEvent, action: ModalType) {
+    e.stopPropagation();
+    onOpen(action, { server, channel });
+  }
+
   return (
     <Button
-      onClick={() => {}}
+      onClick={onClick}
       variant="ghost"
-      className="group flex w-full items-center justify-start gap-x-2 px-2 py-2 text-muted-foreground"
+      className={cn(
+        "group flex w-full items-center justify-start gap-x-2 px-2 py-2 text-muted-foreground hover:bg-accent/60 hover:text-muted-foreground",
+        params?.channelId === channel.id && "bg-accent hover:bg-accent",
+      )}
     >
       {icon}
       <p
         className={cn(
-          "line-clamp-1 text-sm font-semibold",
-          params?.channelId === channel.id && "text-primary-foreground",
+          "line-clamp-1 text-sm font-semibold group-hover:text-accent-foreground",
+          params?.channelId === channel.id &&
+            "text-foreground group-hover:text-foreground",
         )}
       >
         {channel.name}
@@ -46,14 +60,14 @@ export function ServerChannel({ channel, server, role }: ServerChannelProps) {
         <div className="ml-auto flex items-center gap-x-2">
           <ActionTooltip label="Edit" side="top">
             <Edit2
-              className="h-4 w-4 scale-0 transition-transform hover:text-primary-foreground group-hover:scale-100"
-              onClick={() => onOpen("editChannel", { server, channel })}
+              className="h-4 w-4 scale-0 transition-transform hover:text-accent-foreground group-hover:scale-100"
+              onClick={(e) => onAction(e, "editChannel")}
             />
           </ActionTooltip>
           <ActionTooltip label="Delete" side="top">
             <Trash2
-              className="h-4 w-4 scale-0 transition-transform hover:text-primary-foreground group-hover:scale-100"
-              onClick={() => onOpen("deleteChannel", { server, channel })}
+              className="h-4 w-4 scale-0 transition-transform hover:text-accent-foreground group-hover:scale-100"
+              onClick={(e) => onAction(e, "deleteChannel")}
             />
           </ActionTooltip>
         </div>

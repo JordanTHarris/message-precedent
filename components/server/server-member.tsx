@@ -3,9 +3,9 @@
 import { Member, MemberRole, Server, User } from "@prisma/client";
 import { Crown, ShieldAlert, ShieldCheck } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
-import { Button } from "../ui/button";
+import UserAvatar from "@/components/shared/user-avatar";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import UserAvatar from "../shared/user-avatar";
 
 interface ServerMemberProps {
   member: Member & { user: User };
@@ -25,6 +25,10 @@ export function ServerMember({ member, server }: ServerMemberProps) {
 
   const icon = roleIconMap[member.role];
 
+  function onClick() {
+    router.push(`/servers/${params?.serverId}/conversations/${member.id}`);
+  }
+
   return (
     <div>
       <Button
@@ -32,8 +36,9 @@ export function ServerMember({ member, server }: ServerMemberProps) {
         size="icon"
         className={cn(
           "mb-1 flex w-full items-center justify-start gap-x-2 p-2 text-muted-foreground",
-          params?.userId === member.user.id && "text-primary-foreground",
+          // params?.memberId === member.user.id && "text-primary-foreground",
         )}
+        onClick={onClick}
       >
         <UserAvatar
           src={member.user.image || ""}
@@ -44,7 +49,7 @@ export function ServerMember({ member, server }: ServerMemberProps) {
         <p
           className={cn(
             "text-sm font-semibold",
-            params?.userId === member.user.id && "text-primary-foreground",
+            params?.memberId === member.user.id && "text-foreground",
           )}
         >
           {member.user.name}
