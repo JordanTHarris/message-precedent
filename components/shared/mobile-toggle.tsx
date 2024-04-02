@@ -20,7 +20,7 @@ export function MobileToggle({
         <Sheet modal={false}>
           <SheetTrigger asChild>
             <div className="fixed flex h-12 items-center">
-              <Button variant="ghost" size="icon" className="">
+              <Button variant="ghost" size="icon" className="h-12 ">
                 <Menu />
               </Button>
             </div>

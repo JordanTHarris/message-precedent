@@ -33,14 +33,14 @@ export default async function ServerIdLayout({
   return (
     <div className="flex h-full">
       <MobileToggle serverId={params.serverId}>
-        <div className="w-70 flex h-full">
-          <div className="flex h-full w-[72px] ">
+        {/* <div className="w-70 flex h-full"> */}
+        {/* <div className="flex h-full w-[72px] ">
             <NavSidebar />
-          </div>
-          <div className="flex h-full ">
-            <ChannelsSidebar serverId={params.serverId} />
-          </div>
+          </div> */}
+        <div className="w-70 flex h-full">
+          <ChannelsSidebar serverId={params.serverId} />
         </div>
+        {/* </div> */}
       </MobileToggle>
       {/* <div className="fixed inset-y-0 z-20 flex h-12 w-60 flex-col justify-center md:hidden ">
         <MobileToggle serverId={params.serverId} />
