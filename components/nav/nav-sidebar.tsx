@@ -29,7 +29,7 @@ export async function NavSidebar() {
   });
 
   return (
-    <div className="w- flex h-full flex-col items-center space-y-4 bg-secondary py-3">
+    <div className="flex h-full flex-col items-center space-y-4 bg-secondary py-3">
       <NavAction />
       <div className="w-full px-4">
         <Separator className="h-1 rounded-md" />
