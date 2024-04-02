@@ -1,9 +1,9 @@
 import { redirect } from "next/navigation";
 import { ChannelsSidebar } from "@/components/server/channels-sidebar";
+import { MobileToggle } from "@/components/shared/mobile-toggle";
 import { currentUser } from "@/lib/current-user";
 import prisma from "@/lib/prisma";
 import { redirectToLogin } from "@/lib/session";
-import { MobileToggle } from "@/components/shared/mobile-toggle";
 
 export default async function ServerIdLayout({
   children,
