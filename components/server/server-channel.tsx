@@ -42,14 +42,14 @@ export function ServerChannel({ channel, server, role }: ServerChannelProps) {
       onClick={onClick}
       variant="ghost"
       className={cn(
-        "group flex w-full items-center justify-start gap-x-2 px-2 py-2 text-muted-foreground hover:bg-accent/60 hover:text-muted-foreground",
+        "group flex w-60 items-center justify-start gap-x-2 px-2 py-2 text-muted-foreground hover:bg-accent/60 hover:text-muted-foreground",
         params?.channelId === channel.id && "bg-accent hover:bg-accent",
       )}
     >
       {icon}
       <p
         className={cn(
-          "line-clamp-1 text-sm font-semibold group-hover:text-accent-foreground",
+          "truncate text-sm font-semibold group-hover:text-accent-foreground",
           params?.channelId === channel.id &&
             "text-foreground group-hover:text-foreground",
         )}

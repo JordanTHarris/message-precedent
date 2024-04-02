@@ -37,7 +37,7 @@ export default async function ServerIdLayout({
         {/* <div className="flex h-full w-[72px] ">
             <NavSidebar />
           </div> */}
-        <div className="w-70 flex h-full">
+        <div className="flex h-full">
           <ChannelsSidebar serverId={params.serverId} />
         </div>
         {/* </div> */}
