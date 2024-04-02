@@ -6,6 +6,7 @@ import { useParams, useRouter } from "next/navigation";
 import { ActionTooltip } from "@/components/shared/action-tooltip";
 import { Button } from "@/components/ui/button";
 import { ModalType, useModal } from "@/lib/hooks/use-modal-store";
+import { useSidebar } from "@/lib/hooks/use-sheet-store";
 import { cn } from "@/lib/utils";
 
 interface ServerChannelProps {
@@ -22,6 +23,7 @@ const iconMap = {
 
 export function ServerChannel({ channel, server, role }: ServerChannelProps) {
   const { onOpen } = useModal();
+  const { onOpenSidebar } = useSidebar();
   const params = useParams();
   const router = useRouter();
 
@@ -29,6 +31,7 @@ export function ServerChannel({ channel, server, role }: ServerChannelProps) {
 
   function onClick() {
     router.push(`/servers/${params?.serverId}/channels/${channel.id}`);
+    onOpenSidebar(false);
   }
 
   // stop propagation to prevent clicking through to outer button
