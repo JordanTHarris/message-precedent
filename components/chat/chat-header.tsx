@@ -11,9 +11,9 @@ interface ChatHeaderProps {
 export function ChatHeader({ serverId, name, type, imageUrl }: ChatHeaderProps) {
   return (
     <div className="flex h-12 items-center border-b-2 border-secondary px-3 text-base font-semibold">
-      <MobileToggle serverId={serverId} />
+      {/* <MobileToggle serverId={serverId} /> */}
       {type === "channel" && (
-        <Hash className="h-5 w-5 flex-shrink-0 text-muted-foreground" />
+        <Hash className="ml-8 h-5 w-5 flex-shrink-0 text-muted-foreground md:ml-0" />
       )}
       <p className="truncate font-semibold">{name}</p>
     </div>
