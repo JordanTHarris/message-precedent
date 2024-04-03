@@ -45,10 +45,7 @@ export function NavUser({ user, size = 48 }: { user: User; size?: number }) {
           )}
         />
       </DropdownMenuTrigger>
-      <DropdownMenuContent
-        onCloseAutoFocus={(e) => e.preventDefault()}
-        side="right"
-      >
+      <DropdownMenuContent onCloseAutoFocus={(e) => e.preventDefault()} side="right">
         <DropdownMenuItem onClick={() => router.push("/")}>
           <Home className="mr-2 h-4 w-4" />
           <p>Home</p>
@@ -61,7 +58,7 @@ export function NavUser({ user, size = 48 }: { user: User; size?: number }) {
         >
           <SunIcon className="mr-2 h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
           <MoonIcon className="absolute mr-2 h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-          <p className="text-sm">Theme</p>
+          <p className="text-sm">{theme === "light" ? "Light" : "Dark"}</p>
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => router.push("/profile")}>
           <UserIcon className="mr-2 h-4 w-4" />

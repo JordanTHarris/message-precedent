@@ -79,20 +79,17 @@ export function EditServerModal() {
     }
   }, [server, form]);
 
-  const { startUpload, permittedFileInfo, isUploading } = useUploadThing(
-    "serverImage",
-    {
-      onClientUploadComplete: (res) => {
-        toast.success("Uploaded successfully");
-      },
-      onUploadError: (error) => {
-        toast.error(`Upload failed: ${error.message}`);
-      },
-      onUploadBegin: () => {
-        toast.info("Upload has begun");
-      },
+  const { startUpload, permittedFileInfo, isUploading } = useUploadThing("serverImage", {
+    onClientUploadComplete: (res) => {
+      toast.success("Uploaded successfully");
     },
-  );
+    onUploadError: (error) => {
+      toast.error(`Upload failed: ${error.message}`);
+    },
+    onUploadBegin: () => {
+      toast.info("Upload has begun");
+    },
+  });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     // TODO: resize image to 512x512 or something before upload

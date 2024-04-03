@@ -100,10 +100,10 @@ export function MembersModal() {
       <DialogContent>
         <DialogHeader className="pb-2">
           <DialogTitle className="">Manage Members</DialogTitle>
-          <DialogDescription>{server?.members.length} Members</DialogDescription>
+          <DialogDescription>{server?.members?.length} Members</DialogDescription>
         </DialogHeader>
         <ScrollArea className="mt-8 max-h-[420px] pr-6">
-          {server?.members.map((member) => (
+          {server?.members?.map((member) => (
             <div key={member.id} className="mb-6 flex items-center gap-x-4">
               <UserAvatar
                 src={member.user.image || ""}

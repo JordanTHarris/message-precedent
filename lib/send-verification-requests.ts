@@ -1,9 +1,7 @@
-import { SendVerificationRequestParams } from "next-auth/providers";
+import { SendVerificationRequestParams } from "next-auth/providers/email";
 import { resend } from "@/lib/resend";
 
-export const sendVerificationRequest = async (
-  params: SendVerificationRequestParams,
-) => {
+export const sendVerificationRequest = async (params: SendVerificationRequestParams) => {
   try {
     await resend.emails.send({
       from: params.provider.from,
