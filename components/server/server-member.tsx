@@ -41,8 +41,8 @@ export function ServerMember({ member, server, currentUser }: ServerMemberProps)
         variant="ghost"
         size="icon"
         className={cn(
-          "mb-1 flex w-full items-center justify-start gap-x-2 p-2 text-muted-foreground",
-          // params?.memberId === member.user.id && "text-primary-foreground",
+          "mb-1 flex w-full items-center justify-start gap-x-2 p-2 text-muted-foreground hover:bg-accent/60",
+          params?.memberId === member.id && "bg-accent",
         )}
         onClick={onClick}
       >
@@ -55,7 +55,7 @@ export function ServerMember({ member, server, currentUser }: ServerMemberProps)
         <p
           className={cn(
             "text-sm font-semibold",
-            params?.memberId === member.user.id && "text-foreground",
+            params?.memberId === member.id && "text-foreground",
           )}
         >
           {member.user.name}

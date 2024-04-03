@@ -1,7 +1,7 @@
+import { MemberRole } from "@prisma/client";
 import { NextResponse } from "next/server";
 import { currentUser } from "@/lib/current-user";
 import prisma from "@/lib/prisma";
-import { MemberRole } from "@prisma/client";
 
 export async function POST(request: Request) {
   try {

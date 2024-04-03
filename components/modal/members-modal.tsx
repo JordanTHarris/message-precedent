@@ -37,6 +37,7 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useModal } from "@/lib/hooks/use-modal-store";
 import { ServerWithMembersWithUsers } from "@/types/types";
+import { Member, User } from "@prisma/client";
 
 const roleIcons = {
   GUEST: null,
@@ -74,25 +75,8 @@ export function MembersModal() {
     }
   }
 
-  async function onKick(memberId: string) {
-    try {
-      setLoadingId(memberId);
-      const url = qs.stringifyUrl({
-        url: `/api/members/${memberId}`,
-        query: {
-          serverId: server?.id,
-        },
-      });
-
-      const response = await axios.delete(url);
-
-      router.refresh();
-      onOpen("members", { server: response.data });
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setLoadingId("");
-    }
+  async function onKick(member: Member & { user: User }) {
+    onOpen("kickMember", { server, member }); // open confirm dialog
   }
 
   return (
@@ -158,7 +142,7 @@ export function MembersModal() {
                       <DropdownMenuSeparator />
                       <DropdownMenuItem
                         className="text-destructive hover:!bg-destructive hover:!text-destructive-foreground"
-                        onClick={() => onKick(member.id)}
+                        onClick={() => onKick(member)}
                       >
                         <Gavel className="text mr-2 h-4 w-4" />
                         Kick

@@ -8,6 +8,7 @@ import { DeleteServerModal } from "@/components/modal/delete-server-modal";
 import { EditChannelModal } from "@/components/modal/edit-channel-modal";
 import { EditServerModal } from "@/components/modal/edit-server-modal";
 import { InviteModal } from "@/components/modal/invite-modal";
+import { KickMemberModal } from "@/components/modal/kick-member-modal";
 import { LeaveServerModal } from "@/components/modal/leave-server-modal";
 import { MembersModal } from "@/components/modal/members-modal";
 
@@ -29,6 +30,7 @@ export function ModalProvider() {
       <EditChannelModal />
       <EditServerModal />
       <InviteModal />
+      <KickMemberModal />
       <LeaveServerModal />
       <MembersModal />
     </>
