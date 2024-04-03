@@ -5,11 +5,13 @@ import { Crown, ShieldAlert, ShieldCheck } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import UserAvatar from "@/components/shared/user-avatar";
 import { Button } from "@/components/ui/button";
+import { useSidebar } from "@/lib/hooks/use-sheet-store";
 import { cn } from "@/lib/utils";
 
 interface ServerMemberProps {
   member: Member & { user: User };
   server: Server;
+  currentUser: User;
 }
 
 const roleIconMap = {
@@ -19,14 +21,18 @@ const roleIconMap = {
   // [MemberRole.ADMIN]: <ShieldAlert className="ml-2 h-4 w-4 text-rose-500" />,
 };
 
-export function ServerMember({ member, server }: ServerMemberProps) {
+export function ServerMember({ member, server, currentUser }: ServerMemberProps) {
   const params = useParams();
   const router = useRouter();
+  const { onOpenSidebar } = useSidebar();
 
   const icon = roleIconMap[member.role];
 
   function onClick() {
-    router.push(`/servers/${params?.serverId}/conversations/${member.id}`);
+    if (member.user.id !== currentUser.id) {
+      router.push(`/servers/${params?.serverId}/conversations/${member.id}`);
+      onOpenSidebar(false);
+    }
   }
 
   return (
@@ -41,9 +47,9 @@ export function ServerMember({ member, server }: ServerMemberProps) {
         onClick={onClick}
       >
         <UserAvatar
-          src={member.user.image || ""}
-          alt={member.user.name || ""}
-          fallback={member.user.name || ""}
+          src={member.user.image as string}
+          alt={member.user.name as string}
+          fallback={member.user.name as string}
           className="h-8 w-8"
         />
         <p

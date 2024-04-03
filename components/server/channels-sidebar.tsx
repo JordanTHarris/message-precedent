@@ -108,11 +108,13 @@ export async function ChannelsSidebar({ serverId }: ServerSidebarProps) {
               {
                 label: "Members",
                 type: "member",
-                data: members?.map((member) => ({
-                  id: member.id,
-                  name: member.user.name as string,
-                  icon: roleIconMap[member.role],
-                })),
+                data: members
+                  ?.filter((member) => member.userId !== user.id) // don't show yourself
+                  ?.map((member) => ({
+                    id: member.id,
+                    name: member.user.name as string,
+                    icon: roleIconMap[member.role],
+                  })),
               },
             ]}
           />
@@ -181,7 +183,12 @@ export async function ChannelsSidebar({ serverId }: ServerSidebarProps) {
               server={server}
             />
             {members.map((member) => (
-              <ServerMember key={member.id} member={member} server={server} />
+              <ServerMember
+                key={member.id}
+                member={member}
+                server={server}
+                currentUser={user}
+              />
             ))}
           </div>
         )}
