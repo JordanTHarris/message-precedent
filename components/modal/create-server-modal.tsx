@@ -16,13 +16,11 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
   DialogFooter,
 } from "@/components/ui/dialog";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -52,20 +50,17 @@ export function CreateServerModal() {
   });
   const isLoading = form.formState.isSubmitting;
 
-  const { startUpload, permittedFileInfo, isUploading } = useUploadThing(
-    "serverImage",
-    {
-      onClientUploadComplete: (res) => {
-        toast.success("Uploaded successfully");
-      },
-      onUploadError: (error) => {
-        toast.error(`Upload failed: ${error.message}`);
-      },
-      onUploadBegin: () => {
-        toast.info("Upload has begun");
-      },
+  const { startUpload, permittedFileInfo, isUploading } = useUploadThing("serverImage", {
+    onClientUploadComplete: (res) => {
+      toast.success("Uploaded successfully");
     },
-  );
+    onUploadError: (error) => {
+      toast.error(`Upload failed: ${error.message}`);
+    },
+    onUploadBegin: () => {
+      toast.info("Upload has begun");
+    },
+  });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     // TODO: resize image to 512x512 or something before upload
@@ -102,8 +97,8 @@ export function CreateServerModal() {
         <DialogHeader className="pb-2">
           <DialogTitle>Create your server</DialogTitle>
           <DialogDescription>
-            Liven up your server by giving it a name and an image. You can
-            change this later.
+            Liven up your server by giving it a name and an image. You can change this
+            later.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>

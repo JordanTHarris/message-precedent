@@ -1,6 +1,5 @@
 import { User2 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { cn } from "@/lib/utils";
 
 interface UserAvatarProps {
   src?: string;
@@ -9,12 +8,7 @@ interface UserAvatarProps {
   alt?: string;
 }
 
-export default function UserAvatar({
-  src,
-  fallback,
-  className,
-  alt,
-}: UserAvatarProps) {
+export default function UserAvatar({ src, fallback, className, alt }: UserAvatarProps) {
   // get two letters from a fallback name
   const fallbackName =
     fallback

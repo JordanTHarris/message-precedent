@@ -1,16 +1,10 @@
 "use client";
 
 import axios from "axios";
-import { Check, Clipboard, RefreshCw } from "lucide-react";
+import { Check, Clipboard, Loader2, RefreshCw } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useModal } from "@/lib/hooks/use-modal-store";
@@ -34,7 +28,7 @@ export function InviteModal() {
 
     setTimeout(() => {
       setCopied(false);
-    }, 1000);
+    }, 2000);
   }
 
   async function onNew() {
@@ -68,7 +62,9 @@ export function InviteModal() {
                 readOnly
               />
               <Button variant="ghost" size="icon" onClick={onCopy} disabled={isLoading}>
-                {copied ? (
+                {isLoading ? (
+                  <Loader2 className="h-5 w-5 animate-spin" />
+                ) : copied ? (
                   <Check className="h-5 w-5 text-green-500" />
                 ) : (
                   <Clipboard className="h-5 w-5" />

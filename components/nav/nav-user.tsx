@@ -5,7 +5,6 @@ import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
 import { Home, LogOut, User as UserIcon } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
 import { useTheme } from "next-themes";
 import { useState } from "react";
@@ -13,8 +12,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { cn } from "@/lib/utils";
@@ -37,8 +34,8 @@ export function NavUser({ user, size = 48 }: { user: User; size?: number }) {
         <Image
           alt={email}
           src={image || `https://avatars.dicebear.com/api/micah/${email}.svg`}
-          width={48}
-          height={48}
+          width={size}
+          height={size}
           className={cn(
             "rounded-[24px] transition-all hover:rounded-[16px]",
             open && "rounded-[16px]",

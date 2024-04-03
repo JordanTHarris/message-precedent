@@ -6,13 +6,7 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import useMediaQuery from "@/lib/hooks/use-media-query";
 import { useSidebar } from "@/lib/hooks/use-sheet-store";
 
-export function MobileToggle({
-  serverId,
-  children,
-}: {
-  serverId: string;
-  children: React.ReactNode;
-}) {
+export function MobileToggle({ children }: { children: React.ReactNode }) {
   const { device } = useMediaQuery();
   const { onOpenSidebar, isOpen } = useSidebar();
 

@@ -1,4 +1,3 @@
-import { redirect } from "next/navigation";
 import { NavAction } from "@/components/nav/nav-action";
 import { NavItem } from "@/components/nav/nav-item";
 import { ScrollArea } from "@/components/ui/scroll-area";
@@ -11,7 +10,6 @@ import { NavUser } from "./nav-user";
 export async function NavSidebar() {
   const user = await currentUser();
 
-  // if (!user) return redirect("/login");
   if (!user) {
     redirectToLogin();
     return null;

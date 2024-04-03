@@ -1,5 +1,6 @@
 "use client";
 
+import { Member, User } from "@prisma/client";
 import axios from "axios";
 import {
   Check,
@@ -37,7 +38,6 @@ import {
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useModal } from "@/lib/hooks/use-modal-store";
 import { ServerWithMembersWithUsers } from "@/types/types";
-import { Member, User } from "@prisma/client";
 
 const roleIcons = {
   GUEST: null,
@@ -50,6 +50,7 @@ export function MembersModal() {
   const router = useRouter();
   const { isOpen, onOpen, onClose, type, data } = useModal();
   const [loadingId, setLoadingId] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const isModalOpen = isOpen && type === "members";
   const { server } = data as { server: ServerWithMembersWithUsers };

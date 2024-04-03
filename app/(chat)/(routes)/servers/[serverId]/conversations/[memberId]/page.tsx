@@ -1,4 +1,3 @@
-import { redirect } from "next/navigation";
 import { ChatHeader } from "@/components/chat/chat-header";
 import { getOrCreateConversation } from "@/lib/conversation";
 import { currentUser } from "@/lib/current-user";

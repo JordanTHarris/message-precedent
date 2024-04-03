@@ -7,7 +7,6 @@ export default async function MainLayout({ children }: { children: React.ReactNo
         <NavSidebar />
       </div>
       <main className="h-full pl-[72px]">{children}</main>
-      {/* <main className="h-full">{children}</main> */}
     </div>
   );
 }

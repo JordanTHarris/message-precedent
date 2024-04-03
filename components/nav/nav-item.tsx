@@ -1,6 +1,5 @@
 "use client";
 
-import { Ghost } from "lucide-react";
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 import { ActionTooltip } from "@/components/shared/action-tooltip";
