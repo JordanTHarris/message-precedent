@@ -1,5 +1,6 @@
 import { redirect } from "next/navigation";
 import { ChatHeader } from "@/components/chat/chat-header";
+import ChatInput from "@/components/chat/chat-input";
 import { currentUser } from "@/lib/current-user";
 import prisma from "@/lib/prisma";
 import { redirectToLogin } from "@/lib/session";
@@ -33,8 +34,15 @@ export default async function ChannelIdPage({ params }: ChannelIdPageProps) {
   }
 
   return (
-    <div className="bg-chat flex h-full flex-col">
+    <div className="flex h-full flex-col bg-chat">
       <ChatHeader name={channel.name} serverId={channel.serverId} type="channel" />
+      <div className="flex-1">Future Messages</div>
+      <ChatInput
+        name={channel.name}
+        type="channel"
+        apiUrl={"/api/socket/messages/"}
+        query={{ channelId: channel.id, serverId: channel.serverId }}
+      />
     </div>
   );
 }

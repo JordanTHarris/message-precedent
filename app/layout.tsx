@@ -3,6 +3,7 @@ import { Analytics } from "@vercel/analytics/react";
 import { Metadata, Viewport } from "next";
 import Nav from "@/components/layout/nav";
 import { ModalProvider } from "@/components/providers/modal-provider";
+import { SocketProvider } from "@/components/providers/socket-provider";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { fontOpenSans, fontInter } from "@/fonts/fonts";
@@ -34,13 +35,15 @@ export default async function RootLayout(props: {
           enableSystem
           disableTransitionOnChange
         >
-          <Nav />
-          <div className="h-[100dvh]">
-            {props.children}
-            {props.modal}
-          </div>
-          <ModalProvider />
-          <Toaster richColors />
+          <SocketProvider>
+            <Nav />
+            <div className="h-[100dvh]">
+              {props.children}
+              {props.modal}
+            </div>
+            <ModalProvider />
+            <Toaster richColors />
+          </SocketProvider>
         </ThemeProvider>
         {/* <Analytics /> */}
       </body>

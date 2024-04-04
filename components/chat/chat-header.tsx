@@ -1,6 +1,8 @@
 "use client";
 
 import { Hash } from "lucide-react";
+import { SocketIndicator } from "@/components/shared/socket-indicator";
+import UserAvatar from "@/components/shared/user-avatar";
 import { Button } from "@/components/ui/button";
 import { useSidebar } from "@/lib/hooks/use-sheet-store";
 
@@ -24,8 +26,14 @@ export function ChatHeader({ serverId, name, type, imageUrl }: ChatHeaderProps) 
         {type === "channel" && (
           <Hash className="h-5 w-5 flex-shrink-0 text-muted-foreground" />
         )}
+        {type === "conversation" && (
+          <UserAvatar src={imageUrl} alt={name} className="mr-2 h-8 w-8 flex-shrink-0" />
+        )}
         <p className="truncate font-semibold">{name}</p>
       </Button>
+      <div className="ml-auto flex items-center">
+        <SocketIndicator />
+      </div>
     </div>
   );
 }
