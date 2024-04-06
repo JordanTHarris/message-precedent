@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
+import { useModal } from "@/lib/hooks/use-modal-store";
 import { Textarea } from "../ui/textarea";
 
 interface ChatInputProps {
@@ -22,6 +23,8 @@ const formSchema = z.object({
 });
 
 export default function ChatInput({ apiUrl, query, name, type }: ChatInputProps) {
+  const { onOpen } = useModal();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -69,7 +72,7 @@ export default function ChatInput({ apiUrl, query, name, type }: ChatInputProps)
                   <Button
                     type="button"
                     variant={"ghost"}
-                    onClick={() => {}}
+                    onClick={() => onOpen("messageFile", { apiUrl, query })}
                     className="mt-2 h-6 w-6 items-center justify-center rounded-full bg-muted-foreground p-1 hover:bg-foreground hover:text-foreground"
                   >
                     <Plus className="flex-shrink-0 text-chat" />

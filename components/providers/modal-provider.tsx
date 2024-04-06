@@ -11,6 +11,7 @@ import { InviteModal } from "@/components/modal/invite-modal";
 import { KickMemberModal } from "@/components/modal/kick-member-modal";
 import { LeaveServerModal } from "@/components/modal/leave-server-modal";
 import { MembersModal } from "@/components/modal/members-modal";
+import { MessageFileModal } from "@/components/modal/message-file-modal";
 
 export function ModalProvider() {
   const [isMounted, setIsMounted] = useState(false);
@@ -33,6 +34,7 @@ export function ModalProvider() {
       <KickMemberModal />
       <LeaveServerModal />
       <MembersModal />
+      <MessageFileModal />
     </>
   );
 }

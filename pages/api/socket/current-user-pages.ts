@@ -8,7 +8,6 @@ export async function currentUserPages(
   req: NextApiRequest,
   res: NextApiResponseServerIo,
 ) {
-  // const user = await getCurrentUser();
   const session = await getServerSession(req, res, authOptions);
   const user = session?.user;
 
