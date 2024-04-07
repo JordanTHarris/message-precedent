@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { ChatHeader } from "@/components/chat/chat-header";
-import ChatInput from "@/components/chat/chat-input";
+import { ChatInput } from "@/components/chat/chat-input";
+import { ChatMessages } from "@/components/chat/chat-messages";
 import { currentUser } from "@/lib/current-user";
 import prisma from "@/lib/prisma";
 import { redirectToLogin } from "@/lib/session";
@@ -36,7 +37,17 @@ export default async function ChannelIdPage({ params }: ChannelIdPageProps) {
   return (
     <div className="flex h-full flex-col bg-chat">
       <ChatHeader name={channel.name} serverId={channel.serverId} type="channel" />
-      <div className="flex-1">Future Messages</div>
+      <ChatMessages
+        name={channel.name}
+        member={member}
+        chatId={channel.id}
+        apiUrl="/api/messages"
+        socketUrl="/api/socket/messages"
+        socketQuery={{ channelId: channel.id, serverId: channel.serverId }}
+        paramKey="channelId"
+        paramValue={channel.id}
+        type="channel"
+      />
       <ChatInput
         name={channel.name}
         type="channel"

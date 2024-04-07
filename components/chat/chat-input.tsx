@@ -24,7 +24,7 @@ const formSchema = z.object({
   content: z.string().min(1),
 });
 
-export default function ChatInput({ apiUrl, query, name, type }: ChatInputProps) {
+export function ChatInput({ apiUrl, query, name, type }: ChatInputProps) {
   const { onOpen } = useModal();
   const router = useRouter();
 
