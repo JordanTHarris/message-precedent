@@ -15,13 +15,9 @@ import { useTheme } from "next-themes";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { getParticlesOptions } from "@/lib/particle-options";
 
-export default function ParticlesComponent({
-  className,
-}: {
-  className?: string;
-}) {
+export default function ParticlesComponent({ className }: { className?: string }) {
   const [init, setInit] = useState(false);
-  const { theme } = useTheme();
+  const { resolvedTheme } = useTheme();
 
   // this should be run only once per application lifetime
   useEffect(() => {
@@ -46,7 +42,7 @@ export default function ParticlesComponent({
     // () => getParticlesOptions(theme === "dark" ? "stars" : "default"),
     () => getParticlesOptions("default"),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [theme], // force re-render on theme changes
+    [resolvedTheme], // force re-render on theme changes
   );
 
   if (!init) {

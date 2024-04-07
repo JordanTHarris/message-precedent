@@ -2,14 +2,16 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
-import { Plus, Smile } from "lucide-react";
+import { Plus } from "lucide-react";
+import { useRouter } from "next/navigation";
 import qs from "query-string";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+import { EmojiPicker } from "@/components/shared/emoji-picker";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
+import { Textarea } from "@/components/ui/textarea";
 import { useModal } from "@/lib/hooks/use-modal-store";
-import { Textarea } from "../ui/textarea";
 
 interface ChatInputProps {
   apiUrl: string;
@@ -24,6 +26,7 @@ const formSchema = z.object({
 
 export default function ChatInput({ apiUrl, query, name, type }: ChatInputProps) {
   const { onOpen } = useModal();
+  const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -42,6 +45,7 @@ export default function ChatInput({ apiUrl, query, name, type }: ChatInputProps)
       });
       await axios.post(url, values);
       form.reset();
+      router.refresh();
     } catch (error) {
       console.log(error);
     }
@@ -61,7 +65,7 @@ export default function ChatInput({ apiUrl, query, name, type }: ChatInputProps)
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="">
+      <form onSubmit={form.handleSubmit(onSubmit)}>
         <FormField
           control={form.control}
           name="content"
@@ -80,13 +84,18 @@ export default function ChatInput({ apiUrl, query, name, type }: ChatInputProps)
                   <Textarea
                     className="no-scrollbar min-h-10 resize-none border-0 border-none bg-secondary/40 text-chat-foreground focus-visible:ring-0 focus-visible:ring-offset-0"
                     placeholder={`Message ${type === "conversation" ? name : "#" + name}`}
+                    disabled={isLoading}
                     onKeyDown={handleTyping}
                     rows={1}
                     autoResize
                     {...field}
                   />
                   <div className="mt-2">
-                    <Smile />
+                    <EmojiPicker
+                      onChange={(emoji: string) => {
+                        field.onChange(`${field.value}${emoji}`);
+                      }}
+                    />
                   </div>
                 </div>
               </FormControl>
