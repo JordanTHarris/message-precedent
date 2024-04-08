@@ -8,6 +8,7 @@ import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { fontOpenSans, fontInter } from "@/fonts/fonts";
 import { cn } from "@/lib/utils";
+import { QueryProvider } from "@/components/providers/query-provider";
 
 export const metadata: Metadata = {
   title: "Prophet Message",
@@ -36,13 +37,15 @@ export default async function RootLayout(props: {
           disableTransitionOnChange
         >
           <SocketProvider>
-            <Nav />
-            <div className="h-[100dvh]">
-              {props.children}
-              {props.modal}
-            </div>
-            <ModalProvider />
-            <Toaster richColors />
+            <QueryProvider>
+              <Nav />
+              <div className="h-[100dvh]">
+                {props.children}
+                {props.modal}
+              </div>
+              <ModalProvider />
+              <Toaster richColors />
+            </QueryProvider>
           </SocketProvider>
         </ThemeProvider>
         {/* <Analytics /> */}

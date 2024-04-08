@@ -20,13 +20,15 @@ export function EmojiPicker({ onChange }: EmojiPickerProps) {
       </PopoverTrigger>
       <PopoverContent
         side="right"
-        sideOffset={50}
+        sideOffset={10}
         className="border-none bg-transparent shadow-none drop-shadow-none"
       >
         <Picker
+          // dynamicWidth={true}
           data={data}
           theme={resolvedTheme}
           onEmojiSelect={(emoji: any) => onChange(emoji.native)}
+          perLine={8}
         />
       </PopoverContent>
     </Popover>

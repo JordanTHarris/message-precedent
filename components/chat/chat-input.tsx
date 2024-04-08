@@ -84,7 +84,7 @@ export function ChatInput({ apiUrl, query, name, type }: ChatInputProps) {
                   <Textarea
                     className="no-scrollbar min-h-10 resize-none border-0 border-none bg-secondary/40 text-chat-foreground focus-visible:ring-0 focus-visible:ring-offset-0"
                     placeholder={`Message ${type === "conversation" ? name : "#" + name}`}
-                    disabled={isLoading}
+                    // disabled={isLoading}
                     onKeyDown={handleTyping}
                     rows={1}
                     autoResize
