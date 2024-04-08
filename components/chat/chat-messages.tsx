@@ -7,6 +7,7 @@ import { Fragment } from "react";
 import { ChatItem } from "@/components/chat/chat-item";
 import { ChatWelcome } from "@/components/chat/chat-welcome";
 import { useChatQuery } from "@/lib/hooks/use-chat-query";
+import { ScrollArea } from "../ui/scroll-area";
 
 const DATE_FORMAT = "d MMM yyyy, HH:mm";
 
@@ -66,7 +67,7 @@ export function ChatMessages({
   }
 
   return (
-    <div className="flex flex-1 flex-col overflow-y-auto py-4">
+    <ScrollArea className="flex flex-1 flex-col overflow-y-auto py-4">
       <div className="flex-1">
         <ChatWelcome name={name} type={type} />
         <div className="mt-auto flex flex-col-reverse">
@@ -92,6 +93,6 @@ export function ChatMessages({
           ))}
         </div>
       </div>
-    </div>
+    </ScrollArea>
   );
 }

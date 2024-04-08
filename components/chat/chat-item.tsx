@@ -43,6 +43,10 @@ export function ChatItem({
   const [isEditing, setIsEditing] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
 
+  const [imageWidth, setImageWidth] = useState(1);
+  const [imageHeight, setImageHeight] = useState(1);
+  const MAX_IMAGE_HEIGHT = 150; // px
+
   const fileType = fileUrl?.split(".").pop();
   const isAdmin = currentMember.role === MemberRole.ADMIN;
   const isModerator = currentMember.role === MemberRole.MODERATOR;
@@ -72,24 +76,32 @@ export function ChatItem({
             </div>
             <span className="text-xs text-muted-foreground">{timestamp}</span>
           </div>
-          {/* TODO: make link fit to image width instead of filling the container */}
           {isImage && (
-            <div className="relative mt-2 h-40 max-w-full">
-              <a
-                href={fileUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-secondary"
-              >
-                <Image
-                  src={fileUrl}
-                  alt={content}
-                  layout="fill"
-                  objectFit="contain"
-                  className="object-left"
-                />
-              </a>
-            </div>
+            <a
+              className="relative mt-2"
+              href={fileUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                height: `${MAX_IMAGE_HEIGHT}`,
+                maxWidth: `${imageWidth}px`,
+                minHeight: `${imageHeight}px`,
+              }}
+            >
+              <Image
+                src={fileUrl}
+                alt={content}
+                fill
+                className="object-contain object-left"
+                onLoad={(e) => {
+                  const aspectRatio =
+                    e.currentTarget.naturalWidth / e.currentTarget.naturalHeight;
+                  const maxWidth = MAX_IMAGE_HEIGHT * aspectRatio;
+                  setImageWidth(maxWidth);
+                  setImageHeight(MAX_IMAGE_HEIGHT);
+                }}
+              />
+            </a>
           )}
           {isPDF && (
             <div className="relative mt-2 flex items-center rounded-md bg-background/10 p-2">
