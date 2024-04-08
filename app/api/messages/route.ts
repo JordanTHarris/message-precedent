@@ -67,8 +67,6 @@ export async function GET(req: Request) {
       nextCursor = messages[MESSAGES_BATCH - 1].id;
     }
 
-    console.log("[MESSAGES_GET]", messages);
-
     return NextResponse.json({
       items: messages,
       nextCursor,

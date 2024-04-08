@@ -72,16 +72,24 @@ export function ChatItem({
             </div>
             <span className="text-xs text-muted-foreground">{timestamp}</span>
           </div>
-          {/* TODO: fix sizing so outer <a> resizes based on content with max full width and set height */}
+          {/* TODO: make link fit to image width instead of filling the container */}
           {isImage && (
-            <a
-              href={fileUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="relative mt-2 flex h-48 max-w-full items-center overflow-hidden rounded-md border bg-secondary"
-            >
-              <Image src={fileUrl} alt={content} fill className="object-contain" />
-            </a>
+            <div className="relative mt-2 h-40 max-w-full">
+              <a
+                href={fileUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-secondary"
+              >
+                <Image
+                  src={fileUrl}
+                  alt={content}
+                  layout="fill"
+                  objectFit="contain"
+                  className="object-left"
+                />
+              </a>
+            </div>
           )}
           {isPDF && (
             <div className="relative mt-2 flex items-center rounded-md bg-background/10 p-2">
