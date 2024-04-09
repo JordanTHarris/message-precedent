@@ -1,7 +1,7 @@
 import { NextApiRequest } from "next";
+import { currentUserPages } from "@/lib/current-user-pages";
 import prisma from "@/lib/prisma";
 import { NextApiResponseServerIo } from "@/types/types";
-import { currentUserPages } from "./current-user-pages";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponseServerIo) {
   if (req.method !== "POST") {
