@@ -6,7 +6,7 @@ import axios from "axios";
 import { Crown, Edit2, FileIcon, ShieldCheck, Trash2 } from "lucide-react";
 import Image from "next/image";
 import qs from "query-string";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { ActionTooltip } from "@/components/shared/action-tooltip";
@@ -55,6 +55,7 @@ export function ChatItem({
   const [isEditing, setIsEditing] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
 
+  const formRef = useRef<HTMLFormElement>(null);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -106,6 +107,11 @@ export function ChatItem({
     } catch (error) {
       console.log(error);
     }
+  }
+
+  function onCancel() {
+    form.reset();
+    setIsEditing(false);
   }
 
   return (
@@ -184,6 +190,7 @@ export function ChatItem({
           {!fileUrl && isEditing && (
             <Form {...form}>
               <form
+                ref={formRef}
                 className="flex w-full items-center gap-x-2 pt-2"
                 onSubmit={form.handleSubmit(onSubmit)}
               >
@@ -210,7 +217,20 @@ export function ChatItem({
                 </Button>
               </form>
               <span className="text-[10px] text-muted-foreground">
-                Press escape to cancel, enter to save
+                {"Press escape to "}
+                <span
+                  className="cursor-pointer text-primary hover:underline"
+                  onClick={() => onCancel()}
+                >
+                  cancel
+                </span>
+                {", enter to "}
+                <span
+                  className="cursor-pointer text-primary hover:underline"
+                  onClick={() => formRef.current?.requestSubmit()}
+                >
+                  save
+                </span>{" "}
               </span>
             </Form>
           )}

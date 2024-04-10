@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
-import { Plus } from "lucide-react";
+import { Plus, SendHorizonal } from "lucide-react";
 import { useRouter } from "next/navigation";
 import qs from "query-string";
 import { useEffect } from "react";
@@ -89,16 +89,25 @@ export function ChatInput({ apiUrl, query, name, type }: ChatInputProps) {
                   >
                     <Plus className="flex-shrink-0 text-chat" />
                   </Button>
-                  <Textarea
-                    className="no-scrollbar bg-chatsecondary min-h-10 resize-none border-0 border-none text-chat-foreground focus-visible:ring-0 focus-visible:ring-offset-0"
-                    placeholder={`Message ${type === "conversation" ? name : "#" + name}`}
-                    disabled={isLoading}
-                    onKeyDown={handleTyping}
-                    rows={1}
-                    autoResize
-                    {...field}
-                  />
-                  <div className="mt-2">
+                  <div className="relative flex-1">
+                    <Textarea
+                      className="no-scrollbar bg-chatsecondary min-h-10 resize-none border-0 border-none text-chat-foreground focus-visible:ring-0 focus-visible:ring-offset-0"
+                      placeholder={`Message ${type === "conversation" ? name : "#" + name}`}
+                      disabled={isLoading}
+                      onKeyDown={handleTyping}
+                      rows={1}
+                      autoResize
+                      {...field}
+                    />
+                    <button
+                      type="submit"
+                      disabled={isLoading}
+                      className="group absolute right-2 top-2 h-6 w-6 text-muted-foreground"
+                    >
+                      <SendHorizonal className="flex-shrink-0 group-hover:text-chat-foreground " />
+                    </button>
+                  </div>
+                  <div className="mt-2 flex items-center justify-center gap-1">
                     <EmojiPicker
                       onChange={(emoji: string) => {
                         field.onChange(`${field.value}${emoji}`);

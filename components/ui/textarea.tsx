@@ -2,8 +2,8 @@
 
 import * as React from "react";
 
-import { cn } from "@/lib/utils";
 import { useAutoResizeTextarea } from "@/lib/hooks/use-auto-resize-textarea";
+import { cn } from "@/lib/utils";
 
 export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   autoResize: boolean;
@@ -21,6 +21,8 @@ const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
         )}
         ref={textAreaRef}
         {...props}
+        onTouchStart={(e) => (e.currentTarget.style.fontSize = "16px")}
+        onBlur={(e) => (e.currentTarget.style.fontSize = "")}
       />
     );
   },
