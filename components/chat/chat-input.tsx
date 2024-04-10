@@ -5,6 +5,7 @@ import axios from "axios";
 import { Plus } from "lucide-react";
 import { useRouter } from "next/navigation";
 import qs from "query-string";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { EmojiPicker } from "@/components/shared/emoji-picker";
@@ -12,7 +13,6 @@ import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
 import { useModal } from "@/lib/hooks/use-modal-store";
-import { useEffect } from "react";
 
 interface ChatInputProps {
   apiUrl: string;
@@ -90,7 +90,7 @@ export function ChatInput({ apiUrl, query, name, type }: ChatInputProps) {
                     <Plus className="flex-shrink-0 text-chat" />
                   </Button>
                   <Textarea
-                    className="no-scrollbar min-h-10 resize-none border-0 border-none bg-secondary/40 text-chat-foreground focus-visible:ring-0 focus-visible:ring-offset-0"
+                    className="no-scrollbar bg-chatsecondary min-h-10 resize-none border-0 border-none text-chat-foreground focus-visible:ring-0 focus-visible:ring-offset-0"
                     placeholder={`Message ${type === "conversation" ? name : "#" + name}`}
                     disabled={isLoading}
                     onKeyDown={handleTyping}

@@ -3,7 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Member, MemberRole, User } from "@prisma/client";
 import axios from "axios";
-import { Crown, Edit, FileIcon, ShieldCheck, Trash2 } from "lucide-react";
+import { Crown, Edit2, FileIcon, ShieldCheck, Trash2 } from "lucide-react";
 import Image from "next/image";
 import qs from "query-string";
 import { useEffect, useState } from "react";
@@ -109,7 +109,7 @@ export function ChatItem({
   }
 
   return (
-    <div className="group relative flex w-full items-center p-4 transition hover:bg-black/5">
+    <div className="group relative flex w-full items-center p-4 transition hover:bg-accent">
       <div className="group flex w-full items-start gap-x-2">
         <div className="cursor-pointer transition hover:drop-shadow-md">
           <UserAvatar
@@ -196,7 +196,7 @@ export function ChatItem({
                         <div className="relative w-full">
                           <Input
                             disabled={isLoading}
-                            className="border-0 border-none bg-border p-2 focus-visible:ring-0 focus-visible:ring-offset-0"
+                            className="bg-chatsecondary border-0 border-none p-2 focus-visible:ring-0 focus-visible:ring-offset-0"
                             placeholder="Edited message"
                             {...field}
                           />
@@ -217,17 +217,17 @@ export function ChatItem({
         </div>
       </div>
       {canDeleteMessage && (
-        <div className="absolute -top-2 right-5 hidden items-center gap-x-2 rounded-sm border bg-tertiary p-1 group-hover:flex">
+        <div className="absolute -top-2 right-5 hidden items-center gap-x-2 rounded-sm bg-tertiary p-1 group-hover:flex">
           {canEditMessage && (
             <ActionTooltip label="Edit">
-              <Edit
+              <Edit2
                 className="ml-auto h-4 w-4 cursor-pointer text-muted-foreground hover:text-foreground"
                 onClick={() => setIsEditing(true)}
               />
             </ActionTooltip>
           )}
           <ActionTooltip label="Delete">
-            <Trash2 className="ml-auto h-4 w-4 cursor-pointer text-muted-foreground hover:text-foreground" />
+            <Trash2 className="ml-auto h-4 w-4 cursor-pointer text-muted-foreground hover:text-destructive" />
           </ActionTooltip>
         </div>
       )}

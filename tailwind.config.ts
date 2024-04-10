@@ -65,6 +65,10 @@ export default withUt({
           DEFAULT: "hsl(var(--chat))",
           foreground: "hsl(var(--chat-foreground))",
         },
+        chatsecondary: {
+          DEFAULT: "hsl(var(--chatsecondary))",
+          foreground: "hsl(var(--chatsecondary-foreground))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",

@@ -6,12 +6,14 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { cn } from "@/lib/utils";
 
 interface ActionTooltipProps {
   label: string;
   children: React.ReactNode;
   side?: "top" | "bottom" | "left" | "right";
   align?: "start" | "center" | "end";
+  className?: string;
 }
 
 export function ActionTooltip({
@@ -19,6 +21,7 @@ export function ActionTooltip({
   children,
   side,
   align,
+  className,
 }: ActionTooltipProps) {
   return (
     <TooltipProvider>
@@ -27,11 +30,9 @@ export function ActionTooltip({
         <TooltipContent
           side={side}
           align={align}
-          className="bg-popover text-foreground"
+          className={cn("bg-popover text-foreground", className)}
         >
-          <p className="text-sm font-semibold capitalize">
-            {label.toLowerCase()}
-          </p>
+          <p className="text-sm font-semibold capitalize">{label.toLowerCase()}</p>
         </TooltipContent>
       </Tooltip>
     </TooltipProvider>
