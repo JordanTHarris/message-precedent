@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
 import { useModal } from "@/lib/hooks/use-modal-store";
+import { useEffect } from "react";
 
 interface ChatInputProps {
   apiUrl: string;
@@ -36,6 +37,13 @@ export function ChatInput({ apiUrl, query, name, type }: ChatInputProps) {
   });
 
   const isLoading = form.formState.isSubmitting;
+
+  // refocus when input re-enables
+  useEffect(() => {
+    if (!isLoading) {
+      form.setFocus("content", { shouldSelect: true });
+    }
+  }, [isLoading, form]);
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
@@ -84,7 +92,7 @@ export function ChatInput({ apiUrl, query, name, type }: ChatInputProps) {
                   <Textarea
                     className="no-scrollbar min-h-10 resize-none border-0 border-none bg-secondary/40 text-chat-foreground focus-visible:ring-0 focus-visible:ring-offset-0"
                     placeholder={`Message ${type === "conversation" ? name : "#" + name}`}
-                    // disabled={isLoading}
+                    disabled={isLoading}
                     onKeyDown={handleTyping}
                     rows={1}
                     autoResize
