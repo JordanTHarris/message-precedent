@@ -203,8 +203,9 @@ export function ChatItem({
                         <div className="relative w-full">
                           <Input
                             disabled={isLoading}
-                            className="bg-chatsecondary border-0 border-none p-2 focus-visible:ring-0 focus-visible:ring-offset-0"
+                            className="border-0 border-none bg-chatsecondary p-2 focus-visible:ring-0 focus-visible:ring-offset-0"
                             placeholder="Edited message"
+                            autoFocus
                             {...field}
                           />
                         </div>
@@ -216,21 +217,21 @@ export function ChatItem({
                   Save
                 </Button>
               </form>
-              <span className="text-[10px] text-muted-foreground">
-                {"Press escape to "}
+              <span className="text-xs text-muted-foreground">
+                Press escape to{" "}
                 <span
                   className="cursor-pointer text-primary hover:underline"
                   onClick={() => onCancel()}
                 >
                   cancel
                 </span>
-                {", enter to "}
+                , enter to{" "}
                 <span
                   className="cursor-pointer text-primary hover:underline"
                   onClick={() => formRef.current?.requestSubmit()}
                 >
                   save
-                </span>{" "}
+                </span>
               </span>
             </Form>
           )}
@@ -242,7 +243,9 @@ export function ChatItem({
             <ActionTooltip label="Edit">
               <Edit2
                 className="ml-auto h-4 w-4 cursor-pointer text-muted-foreground hover:text-foreground"
-                onClick={() => setIsEditing(true)}
+                onClick={() => {
+                  setIsEditing(true);
+                }}
               />
             </ActionTooltip>
           )}
