@@ -115,7 +115,7 @@ export function ChatItem({
   }
 
   return (
-    <div className="group relative flex w-full items-center p-4 transition hover:bg-accent">
+    <div className="group relative flex w-full items-center p-4 transition hover:bg-black/5">
       <div className="group flex w-full items-start gap-x-2">
         <div className="cursor-pointer transition hover:drop-shadow-md">
           <UserAvatar
@@ -238,11 +238,11 @@ export function ChatItem({
         </div>
       </div>
       {canDeleteMessage && (
-        <div className="absolute -top-2 right-5 hidden items-center gap-x-2 rounded-sm bg-tertiary p-1 group-hover:flex">
+        <div className="absolute -top-2 right-5 hidden items-center gap-x-3 rounded-sm border bg-tertiary p-1 group-hover:flex">
           {canEditMessage && (
             <ActionTooltip label="Edit">
               <Edit2
-                className="ml-auto h-4 w-4 cursor-pointer text-muted-foreground hover:text-foreground"
+                className="ml-auto h-5 w-5 cursor-pointer text-muted-foreground hover:text-foreground"
                 onClick={() => {
                   setIsEditing(true);
                 }}
@@ -250,7 +250,7 @@ export function ChatItem({
             </ActionTooltip>
           )}
           <ActionTooltip label="Delete">
-            <Trash2 className="ml-auto h-4 w-4 cursor-pointer text-muted-foreground hover:text-destructive" />
+            <Trash2 className="ml-auto h-5 w-5 cursor-pointer text-muted-foreground hover:text-destructive" />
           </ActionTooltip>
         </div>
       )}

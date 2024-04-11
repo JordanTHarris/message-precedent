@@ -6,7 +6,7 @@ export default async function MainLayout({ children }: { children: React.ReactNo
       <div className="fixed inset-y-0 z-30 flex h-full w-[72px] flex-col ">
         <NavSidebar />
       </div>
-      <main className="h-full pl-[72px]">{children}</main>
+      <main className="fixed h-full w-full pl-[72px]">{children}</main>
     </div>
   );
 }

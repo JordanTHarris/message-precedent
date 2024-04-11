@@ -91,7 +91,7 @@ export function ChatInput({ apiUrl, query, name, type }: ChatInputProps) {
                   </Button>
                   <div className="relative flex-1">
                     <Textarea
-                      className="no-scrollbar min-h-10 resize-none border-0 border-none bg-chatsecondary text-chat-foreground focus-visible:ring-0 focus-visible:ring-offset-0"
+                      className="no-scrollbar min-h-10 resize-none border-0 border-none bg-chatsecondary pr-10 text-chat-foreground focus-visible:ring-0 focus-visible:ring-offset-0"
                       placeholder={`Message ${type === "conversation" ? name : "#" + name}`}
                       disabled={isLoading}
                       onKeyDown={handleTyping}
