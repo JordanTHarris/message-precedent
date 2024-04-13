@@ -3,12 +3,12 @@ import { Analytics } from "@vercel/analytics/react";
 import { Metadata, Viewport } from "next";
 import Nav from "@/components/layout/nav";
 import { ModalProvider } from "@/components/providers/modal-provider";
+import { QueryProvider } from "@/components/providers/query-provider";
 import { SocketProvider } from "@/components/providers/socket-provider";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
 import { fontOpenSans, fontInter } from "@/fonts/fonts";
 import { cn } from "@/lib/utils";
-import { QueryProvider } from "@/components/providers/query-provider";
 
 export const metadata: Metadata = {
   title: "Prophet Message",

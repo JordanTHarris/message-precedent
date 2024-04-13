@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import { Textarea } from "../ui/textarea";
 
 const roleIcons = {
   GUEST: null,
@@ -114,6 +115,13 @@ export function ChatItem({
     setIsEditing(false);
   }
 
+  function handleTyping(e: React.KeyboardEvent<HTMLTextAreaElement>) {
+    if (e.key === "Enter" && e.shiftKey == false) {
+      e.preventDefault();
+      return form.handleSubmit(onSubmit)();
+    }
+  }
+
   return (
     <div className="group relative flex w-full items-center p-4 transition hover:bg-black/5">
       <div className="group flex w-full items-start gap-x-2">
@@ -177,7 +185,7 @@ export function ChatItem({
           {!fileUrl && !isEditing && (
             <p
               className={cn(
-                "text-sm text-chat-foreground",
+                "whitespace-pre-wrap text-sm text-chat-foreground",
                 deleted && "mt-1 text-xs italic text-muted-foreground",
               )}
             >
@@ -201,11 +209,14 @@ export function ChatItem({
                     <FormItem className="flex-1">
                       <FormControl>
                         <div className="relative w-full">
-                          <Input
+                          <Textarea
                             disabled={isLoading}
-                            className="border-0 border-none bg-chatsecondary p-2 focus-visible:ring-0 focus-visible:ring-offset-0"
+                            className="no-scrollbar min-h-10 resize-none border-0 border-none bg-chatsecondary pr-10 text-chat-foreground focus-visible:ring-0 focus-visible:ring-offset-0"
                             placeholder="Edited message"
+                            rows={1}
+                            autoResize
                             autoFocus
+                            onKeyDown={handleTyping}
                             {...field}
                           />
                         </div>
