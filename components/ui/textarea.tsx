@@ -11,7 +11,15 @@ export interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextArea
 
 const Textarea = React.forwardRef<HTMLTextAreaElement, TextareaProps>(
   ({ className, autoResize = false, ...props }, ref) => {
-    const { textAreaRef } = useAutoResizeTextarea(ref, autoResize);
+    const { textAreaRef, updateTextareaHeight } = useAutoResizeTextarea(ref, autoResize);
+
+    // resize the text area when the value changes so it works with resetting forms
+    React.useEffect(() => {
+      if (autoResize) {
+        updateTextareaHeight();
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [textAreaRef.current?.value, updateTextareaHeight]);
 
     return (
       <textarea

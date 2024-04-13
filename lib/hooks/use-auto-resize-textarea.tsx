@@ -1,28 +1,31 @@
-import * as React from "react"
+import * as React from "react";
 
-export const useAutoResizeTextarea = (ref: React.ForwardedRef<HTMLTextAreaElement>, autoResize: boolean) => {
+export const useAutoResizeTextarea = (
+  ref: React.ForwardedRef<HTMLTextAreaElement>,
+  autoResize: boolean,
+) => {
+  const textAreaRef = React.useRef<HTMLTextAreaElement>(null);
 
-    const textAreaRef = React.useRef<HTMLTextAreaElement>(null)
+  React.useImperativeHandle(ref, () => textAreaRef.current!);
 
-    React.useImperativeHandle(ref, () => textAreaRef.current!);
+  const updateTextareaHeight = () => {
+    const ref = textAreaRef?.current;
+    if (ref && autoResize) {
+      ref.style.height = "auto";
+      ref.style.height = ref?.scrollHeight + "px";
+    }
+  };
 
-    React.useEffect(() => {
-        const ref = textAreaRef?.current
+  React.useEffect(() => {
+    updateTextareaHeight();
 
-        const updateTextareaHeight = () => {
-            if (ref && autoResize) {
-                ref.style.height = "auto"
-                ref.style.height = ref?.scrollHeight + "px"
-            }
-        }
+    // const ref = textAreaRef?.current;
+    // ref?.addEventListener("input", updateTextareaHeight);
 
-        updateTextareaHeight()
+    // return () => ref?.removeEventListener("input", updateTextareaHeight);
 
-        ref?.addEventListener("input", updateTextareaHeight)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-        return () => ref?.removeEventListener("input", updateTextareaHeight)
-
-    }, [autoResize])
-
-    return { textAreaRef }
-}
+  return { textAreaRef, updateTextareaHeight }; // Return the updateTextareaHeight function
+};
