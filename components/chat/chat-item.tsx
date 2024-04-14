@@ -172,8 +172,9 @@ export function ChatItem({
               <Image
                 src={fileUrl}
                 alt={content}
-                fill
                 className="object-contain object-left"
+                sizes="(max-width: 640px) 100vw, 640px"
+                fill
                 onLoad={(e) => {
                   const aspectRatio =
                     e.currentTarget.naturalWidth / e.currentTarget.naturalHeight;
