@@ -5,6 +5,7 @@ import { Member, MemberRole, User } from "@prisma/client";
 import axios from "axios";
 import { Crown, Edit2, FileIcon, ShieldCheck, Trash2 } from "lucide-react";
 import Image from "next/image";
+import { useRouter, useParams } from "next/navigation";
 import qs from "query-string";
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -13,9 +14,9 @@ import { ActionTooltip } from "@/components/shared/action-tooltip";
 import UserAvatar from "@/components/shared/user-avatar";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { useModal } from "@/lib/hooks/use-modal-store";
 import { cn } from "@/lib/utils";
-import { Textarea } from "../ui/textarea";
 
 const roleIcons = {
   GUEST: null,
@@ -54,7 +55,9 @@ export function ChatItem({
   socketQuery,
 }: ChatItemProps) {
   const [isEditing, setIsEditing] = useState(false);
-  const [isDeleting, setIsDeleting] = useState(false);
+  const params = useParams();
+  const router = useRouter();
+  const { onOpen } = useModal();
 
   const formRef = useRef<HTMLFormElement>(null);
   const form = useForm<z.infer<typeof formSchema>>({
@@ -122,10 +125,19 @@ export function ChatItem({
     }
   }
 
+  function onMemberClick() {
+    if (member.id === currentMember.id) return;
+
+    router.push(`/servers/${params?.serverId}/conversations/${member.id}`);
+  }
+
   return (
     <div className="group relative flex w-full items-center p-4 transition hover:bg-black/5">
       <div className="group flex w-full items-start gap-x-2">
-        <div className="cursor-pointer transition hover:drop-shadow-md">
+        <div
+          className="cursor-pointer transition hover:drop-shadow-md"
+          onClick={onMemberClick}
+        >
           <UserAvatar
             src={member.user.image as string}
             fallback={member.user.name as string}
@@ -135,7 +147,10 @@ export function ChatItem({
         <div className="flex w-full flex-col">
           <div className="flex items-center gap-x-2">
             <div className="flex items-center">
-              <p className="cursor-pointer text-sm font-semibold hover:underline">
+              <p
+                className="cursor-pointer text-sm font-semibold hover:underline"
+                onClick={onMemberClick}
+              >
                 {member.user.name}
               </p>
               <ActionTooltip label={member.role}>{roleIcons[member.role]}</ActionTooltip>
@@ -261,7 +276,15 @@ export function ChatItem({
             </ActionTooltip>
           )}
           <ActionTooltip label="Delete">
-            <Trash2 className="ml-auto h-5 w-5 cursor-pointer text-muted-foreground hover:text-destructive" />
+            <Trash2
+              className="ml-auto h-5 w-5 cursor-pointer text-muted-foreground hover:text-destructive"
+              onClick={() =>
+                onOpen("deleteMessage", {
+                  apiUrl: `${socketUrl}/${id}`,
+                  query: socketQuery,
+                })
+              }
+            />
           </ActionTooltip>
         </div>
       )}

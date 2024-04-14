@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { CreateChannelModal } from "@/components/modal/create-channel-modal";
 import { CreateServerModal } from "@/components/modal/create-server-modal";
 import { DeleteChannelModal } from "@/components/modal/delete-channel-modal";
+import { DeleteMessageModal } from "@/components/modal/delete-message-modal";
 import { DeleteServerModal } from "@/components/modal/delete-server-modal";
 import { EditChannelModal } from "@/components/modal/edit-channel-modal";
 import { EditServerModal } from "@/components/modal/edit-server-modal";
@@ -27,6 +28,7 @@ export function ModalProvider() {
       <CreateServerModal />
       <CreateChannelModal />
       <DeleteChannelModal />
+      <DeleteMessageModal />
       <DeleteServerModal />
       <EditChannelModal />
       <EditServerModal />
