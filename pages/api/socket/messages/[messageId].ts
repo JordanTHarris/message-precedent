@@ -1,8 +1,8 @@
+import { MemberRole } from "@prisma/client";
 import { NextApiRequest } from "next";
 import { currentUserPages } from "@/lib/current-user-pages";
 import prisma from "@/lib/prisma";
 import { NextApiResponseServerIo } from "@/types/types";
-import { MemberRole } from "@prisma/client";
 
 export default async function handler(req: NextApiRequest, res: NextApiResponseServerIo) {
   if (req.method !== "DELETE" && req.method !== "PATCH") {
